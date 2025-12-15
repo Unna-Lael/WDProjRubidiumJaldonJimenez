@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boy MC Scene</title>
-<link rel="icon" href="https://media.discordapp.net/attachments/1155783555822141502/1432979830168883270/8SCpl2AAAABklEQVQDAG2tm95dUCaBAAAAAElFTkSuQmCC.png?ex=6940fc76&is=693faaf6&hm=baca83b4f3437cf2cd70199f6a354759e234ea2050a6ffbe50236e6e490cb1c3&=&format=webp&quality=lossless&width=510&height=429" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 body {
@@ -62,7 +60,7 @@ body {
   width: 90%;
   max-width: 880px;
   height: 140px;
-  background: rgba(200,230,255,0.95); /* light blue background */
+  background: rgba(200,230,255,0.95);
   border-radius: 18px;
   padding: 20px 25px 26px 25px;
   box-shadow: 0 0 25px rgba(100,180,230,0.5);
@@ -128,7 +126,7 @@ body {
 /* Choices */
 .choices {
   position: fixed;
-  bottom: 180px; /* above textbox */
+  bottom: 180px; 
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -189,26 +187,30 @@ const mcName = localStorage.getItem("playerName") || "MC";
 const dialogues = [
   { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
   { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
-  { text: `(I literally waited outside his house for 30 minutes. This is her fault.)`, name: mcName },
+  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
   { text: `Well? What do you have to say for yourself, mister?`, name: "English", choice: true }
 ];
 
 let currentLine = 0, typing=false, fullyTyped=false, interval, autoTimer, inChoice=false;
 
-function typeLine(text, speed=25, callback){
+function typeLine(text,speed=25,callback){
   clearInterval(interval); clearTimeout(autoTimer);
-  typing = true; fullyTyped=false; textContent.innerHTML="";
+  typing=true; fullyTyped=false; textContent.innerHTML="";
   let i=0;
-  interval = setInterval(()=>{
+  interval=setInterval(()=>{
     if(i<text.length){
-      const span = document.createElement("span");
+      const span=document.createElement("span");
       span.textContent=text[i]; span.classList.add("letter");
       textContent.appendChild(span);
       i++;
-    } else {clearInterval(interval); typing=false; fullyTyped=true; if(callback)callback();
-      if(!dialogues[currentLine].choice && !inChoice){autoTimer=setTimeout(()=>{currentLine++; showNext();},1200);}
+    } else {
+      clearInterval(interval); typing=false; fullyTyped=true;
+      if(callback) callback();
+      if(!dialogues[currentLine].choice && !inChoice){
+        autoTimer=setTimeout(()=>{currentLine++; showNext();},1200);
+      }
     }
-  }, speed);
+  },speed);
 }
 
 function showNext(){
@@ -218,26 +220,34 @@ function showNext(){
   typeLine(line.text,25,()=>{if(line.choice) showChoices();});
 }
 
-textbox.addEventListener("click", ()=>{
+textbox.addEventListener("click",()=>{
   const line=dialogues[currentLine]; if(!line) return;
   clearTimeout(autoTimer);
-  if(typing && !fullyTyped){clearInterval(interval); typing=false; fullyTyped=true; textContent.textContent=line.text; return;}
-  if(fullyTyped && !line.choice && !inChoice){currentLine++; showNext();}
+  if(typing && !fullyTyped){
+    clearInterval(interval); typing=false; fullyTyped=true; textContent.textContent=line.text;
+    if(line.choice) showChoices();
+    return;
+  }
+  if(fullyTyped && !line.choice && !inChoice){
+    currentLine++; showNext();
+  }
 });
 
 function showChoices(){
-  inChoice=true;
-  choicesBox.innerHTML="";
-  choicesBox.style.display="flex";
-  const choiceData = [
+  inChoice=true; choicesBox.innerHTML=""; choicesBox.style.display="flex";
+  const choiceData=[
     { text:"Sorry...", speaker:"English", result:"*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
     { text:"Not my fault you sleep too much.", speaker:"English", result:"H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
-    { text:"Stay silent.", speaker:"English", result:"U-uhm… hello?? Are you even listening to me??" }
+    { text:"[Stay silent.]", speaker:"English", result:"U-uhm… hello?? Are you even listening to me??" }
   ];
   choiceData.forEach(choice=>{
     const btn=document.createElement("div");
     btn.className="choice"; btn.textContent=choice.text;
-    btn.onclick=()=>{choicesBox.style.display="none"; inChoice=false; textContent.innerHTML=""; namebox.textContent=choice.speaker; typeLine(choice.result,25);}
+    btn.onclick=()=>{
+      choicesBox.style.display="none"; inChoice=false; textContent.innerHTML="";
+      namebox.textContent=choice.speaker;
+      typeLine(choice.result,25);
+    };
     choicesBox.appendChild(btn);
   });
 }
@@ -245,6 +255,4 @@ function showChoices(){
 setTimeout(()=>{textbox.style.display="block"; showNext();},3000);
 </script>
 </body>
-</html>
-
 </html>

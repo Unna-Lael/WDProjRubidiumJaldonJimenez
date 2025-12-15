@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boy MC Scene</title>
+<title>Girl MC Scene</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 body {
@@ -105,27 +105,6 @@ body {
   text-shadow: 0 0 2px rgba(255,255,255,0.6);
 }
 
-/* Navbar */
-.navbar {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-}
-.navbar a {
-  text-decoration: none;
-  color: white;
-  background: rgba(255,105,180,0.88);
-  padding: 5px 10px;
-  border-radius: 7px;
-  font-weight: 700;
-  transition: 0.25s;
-}
-.navbar a:hover {background: rgba(255,105,180,1);}
-
 /* Choices */
 .choices {
   position: fixed;
@@ -162,7 +141,6 @@ body {
 
 <div class="wave"></div>
 <div class="bg"></div>
-
 <img class="character" id="character" src="https://i.pinimg.com/originals/1a/21/5c/1a215cd87f4ac1cebc3c3a8353da7d8a.png">
 
 <div class="choices" id="choices"></div>
@@ -170,14 +148,6 @@ body {
 <div class="textbox" id="textbox">
   <div class="namebox" id="namebox">English</div>
   <div id="text-content"></div><span class="cursor"></span>
-
-  <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="about.html">About the Game</a>
-    <a href="play.html">PLAY!!</a>
-    <a href="notebook.html">Notebook</a>
-    <a href="gallery.html">Gallery</a>
-  </div>
 </div>
 
 <script>
@@ -231,9 +201,7 @@ function showNext() {
   if (currentLine >= dialogues.length) return;
   const line = dialogues[currentLine];
   namebox.textContent = line.name;
-  typeLine(line.text, 25, () => {
-    if (line.choice) showChoices();
-  });
+  typeLine(line.text, 25, () => { if(line.choice) showChoices(); });
 }
 
 textbox.addEventListener("click", () => {
@@ -254,119 +222,6 @@ textbox.addEventListener("click", () => {
   }
 });
 
-function showChoices() {
-  inChoice = true;
-  choicesBox.innerHTML = "";
-  choicesBox.style.display = "flex";
-  const choiceData = [
-    { text: "Sorry...", speaker: "English", result: "*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
-    { text: "Not my fault you sleep too much.", speaker: "English", result: "H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
-    { text: "Stay silent.", speaker: "English", result: "U-uhm… hello?? Are you even listening to me??" }
-  ];
-
-  choiceData.forEach(choice => {
-    const btn = document.createElement("div");
-    btn.className = "choice";
-    btn.textContent = choice.text;
-    btn.onclick = () => {
-      choicesBox.style.display = "none";
-      inChoice = false;
-      textContent.innerHTML = "";
-      namebox.textContent = choice.speaker;
-      typeLine(choice.result, 25);
-    };
-    choicesBox.appendChild(btn);
-  });
-}
-
-// Start scene
-setTimeout(() => {
-  textbox.style.display = "block";
-  showNext();
-}, 3000);
-</script>
-</body>
-</html>
-href="notebook.html">Notebook</a>
-    <a href="gallery.html">Gallery</a>
-  </div>
-</div>
-
-<script>
-const textbox = document.getElementById("textbox");
-const textContent = document.getElementById("text-content");
-const namebox = document.getElementById("namebox");
-const choicesBox = document.getElementById("choices");
-const mcName = localStorage.getItem("playerName") || "MC";
-
-const dialogues = [
-  { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
-  { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
-  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
-  { text: `Well? What do you have to say for yourself, madam?`, name: "English", choice: true }
-];
-
-let currentLine = 0;
-let typing = false;
-let fullyTyped = false;
-let interval;
-let autoTimer;
-let inChoice = false;
-
-// Typewriter effect
-function typeLine(text, speed = 25, callback) {
-  clearInterval(interval);
-  clearTimeout(autoTimer);
-  typing = true;
-  fullyTyped = false;
-  textContent.innerHTML = "";
-  let i = 0;
-  interval = setInterval(() => {
-    if (i < text.length) {
-      const span = document.createElement("span");
-      span.textContent = text[i];
-      span.classList.add("letter");
-      textContent.appendChild(span);
-      i++;
-    } else {
-      clearInterval(interval);
-      typing = false;
-      fullyTyped = true;
-      if (callback) callback();
-      if (!dialogues[currentLine].choice && !inChoice) {
-        autoTimer = setTimeout(() => { currentLine++; showNext(); }, 1200);
-      }
-    }
-  }, speed);
-}
-
-// Show next dialogue
-function showNext() {
-  if (currentLine >= dialogues.length) return;
-  const line = dialogues[currentLine];
-  namebox.textContent = line.name;
-  typeLine(line.text, 25, () => { if(line.choice) showChoices(); });
-}
-
-// Click to advance / skip
-textbox.addEventListener("click", () => {
-  const line = dialogues[currentLine];
-  if (!line) return;
-  clearTimeout(autoTimer);
-  if (typing && !fullyTyped) {
-    clearInterval(interval);
-    typing = false;
-    fullyTyped = true;
-    textContent.textContent = line.text;
-    return;
-  }
-  if (fullyTyped && !line.choice && !inChoice) {
-    currentLine++;
-    showNext();
-  }
-});
-
-// Show choices
 function showChoices() {
   inChoice = true;
   choicesBox.innerHTML = "";
