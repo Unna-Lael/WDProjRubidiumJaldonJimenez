@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boy MC Scene</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  background: #ffdce9;
+}
+
+/* Wave transition */
+.wave {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,182,193,0.2));
+  animation: waveFade 1.5s ease forwards;
+  z-index: 1;
+}
+@keyframes waveFade {from {opacity: 1;} to {opacity: 0;}}
+
+/* Background */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url('https://static.wikitide.net/projectsekaiwiki/thumb/e/e2/Bg_area_13.png/750px-Bg_area_13.png') center/cover no-repeat;
+  opacity: 0;
+  animation: fadeInBG 1.5s ease forwards;
+  animation-delay: 1.5s;
+  z-index: 0;
+}
+@keyframes fadeInBG {from {opacity: 0;} to {opacity: 1;}}
+
+/* Character */
+.character {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35%;
+  max-width: 400px;
+  opacity: 0;
+  z-index: 2;
+  animation: fadeInChar 1s ease forwards;
+  animation-delay: 3s;
+}
+@keyframes fadeInChar {from {opacity: 0;} to {opacity: 1;}}
+
+/* Textbox */
+.textbox {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 880px;
+  height: 140px;
+  background: rgba(255, 220, 240, 0.95);
+  border-radius: 18px;
+  padding: 20px 25px 26px 25px;
+  box-shadow: 0 0 25px rgba(255,150,190,0.5);
+  z-index: 3;
+  display: none;
+  color: #d91f7a;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid #ff9ad1;
+  line-height: 1.45;
+  overflow-wrap: break-word;
+}
+
+.namebox {
+  position: absolute;
+  top: -36px;
+  left: 22px;
+  background: rgba(255,182,193,0.92);
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border: 1px solid #ffa8d5;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.namebox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 8px rgba(255,105,180,0.6);
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background: #d91f7a;
+  animation: blink 0.8s steps(1) infinite;
+  margin-left: 4px;
+}
+@keyframes blink {0%,50%,100% {opacity: 1;} 25%,75% {opacity: 0;}}
+
+.letter {
+  -webkit-text-stroke: 0.6px white;
+  text-shadow: 0 0 2px rgba(255,255,255,0.6);
+}
+
+/* Navbar */
+.navbar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+}
+.navbar a {
+  text-decoration: none;
+  color: white;
+  background: rgba(255,105,180,0.88);
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-weight: 700;
+  transition: 0.25s;
+}
+.navbar a:hover {background: rgba(255,105,180,1);}
+
+/* Choices */
+.choices {
+  position: fixed;
+  bottom: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 650px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 20;
+}
+
+.choice {
+  background: rgba(255, 235, 245, 0.95);
+  border: 2px solid #ff9ad1;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-weight: 700;
+  color: #d91f7a;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 0 10px rgba(255,180,210,0.4);
+}
+.choice:hover {
+  background: rgba(255, 200, 230, 1);
+  transform: scale(1.03);
+}
+</style>
+</head>
+<body>
+
+<div class="wave"></div>
+<div class="bg"></div>
+
+<img class="character" id="character" src="https://i.pinimg.com/originals/1a/21/5c/1a215cd87f4ac1cebc3c3a8353da7d8a.png">
+
+<div class="choices" id="choices"></div>
+
+<div class="textbox" id="textbox">
+  <div class="namebox" id="namebox">English</div>
+  <div id="text-content"></div><span class="cursor"></span>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About the Game</a>
+    <a href="play.html">PLAY!!</a>
+    <a href="notebook.html">Notebook</a>
+    <a href="gallery.html">Gallery</a>
+  </div>
+</div>
+
+<script>
+const textbox = document.getElementById("textbox");
+const textContent = document.getElementById("text-content");
+const namebox = document.getElementById("namebox");
+const choicesBox = document.getElementById("choices");
+const mcName = localStorage.getItem("playerName") || "MC";
+
+const dialogues = [
+  { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
+  { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
+  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
+  { text: `Well? What do you have to say for yourself, madam?`, name: "English", choice: true }
+];
+
+let currentLine = 0;
+let typing = false;
+let fullyTyped = false;
+let interval;
+let autoTimer;
+let inChoice = false;
+
+function typeLine(text, speed = 25, callback) {
+  clearInterval(interval);
+  clearTimeout(autoTimer);
+  typing = true;
+  fullyTyped = false;
+  textContent.innerHTML = "";
+  let i = 0;
+  interval = setInterval(() => {
+    if (i < text.length) {
+      const span = document.createElement("span");
+      span.textContent = text[i];
+      span.classList.add("letter");
+      textContent.appendChild(span);
+      i++;
+    } else {
+      clearInterval(interval);
+      typing = false;
+      fullyTyped = true;
+      if (callback) callback();
+      if (!dialogues[currentLine].choice && !inChoice) {
+        autoTimer = setTimeout(() => { currentLine++; showNext(); }, 1200);
+      }
+    }
+  }, speed);
+}
+
+function showNext() {
+  if (currentLine >= dialogues.length) return;
+  const line = dialogues[currentLine];
+  namebox.textContent = line.name;
+  typeLine(line.text, 25, () => {
+    if (line.choice) showChoices();
+  });
+}
+
+textbox.addEventListener("click", () => {
+  const line = dialogues[currentLine];
+  if (!line) return;
+  clearTimeout(autoTimer);
+  if (typing && !fullyTyped) {
+    clearInterval(interval);
+    typing = false;
+    fullyTyped = true;
+    textContent.textContent = line.text;
+    if(line.choice) showChoices();
+    return;
+  }
+  if (fullyTyped && !line.choice && !inChoice) {
+    currentLine++;
+    showNext();
+  }
+});
+
+function showChoices() {
+  inChoice = true;
+  choicesBox.innerHTML = "";
+  choicesBox.style.display = "flex";
+  const choiceData = [
+    { text: "Sorry...", speaker: "English", result: "*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
+    { text: "Not my fault you sleep too much.", speaker: "English", result: "H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
+    { text: "Stay silent.", speaker: "English", result: "U-uhm… hello?? Are you even listening to me??" }
+  ];
+
+  choiceData.forEach(choice => {
+    const btn = document.createElement("div");
+    btn.className = "choice";
+    btn.textContent = choice.text;
+    btn.onclick = () => {
+      choicesBox.style.display = "none";
+      inChoice = false;
+      textContent.innerHTML = "";
+      namebox.textContent = choice.speaker;
+      typeLine(choice.result, 25);
+    };
+    choicesBox.appendChild(btn);
+  });
+}
+
+// Start scene
+setTimeout(() => {
+  textbox.style.display = "block";
+  showNext();
+}, 3000);
+</script>
+</body>
+</html>
+href="notebook.html">Notebook</a>
+    <a href="gallery.html">Gallery</a>
+  </div>
+</div>
+
+<script>
+const textbox = document.getElementById("textbox");
+const textContent = document.getElementById("text-content");
+const namebox = document.getElementById("namebox");
+const choicesBox = document.getElementById("choices");
+const mcName = localStorage.getItem("playerName") || "MC";
+
+const dialogues = [
+  { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
+  { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
+  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
+  { text: `Well? What do you have to say for yourself, madam?`, name: "English", choice: true }
+];
+
+let currentLine = 0;
+let typing = false;
+let fullyTyped = false;
+let interval;
+let autoTimer;
+let inChoice = false;
+
+// Typewriter effect
+function typeLine(text, speed = 25, callback) {
+  clearInterval(interval);
+  clearTimeout(autoTimer);
+  typing = true;
+  fullyTyped = false;
+  textContent.innerHTML = "";
+  let i = 0;
+  interval = setInterval(() => {
+    if (i < text.length) {
+      const span = document.createElement("span");
+      span.textContent = text[i];
+      span.classList.add("letter");
+      textContent.appendChild(span);
+      i++;
+    } else {
+      clearInterval(interval);
+      typing = false;
+      fullyTyped = true;
+      if (callback) callback();
+      if (!dialogues[currentLine].choice && !inChoice) {
+        autoTimer = setTimeout(() => { currentLine++; showNext(); }, 1200);
+      }
+    }
+  }, speed);
+}
+
+// Show next dialogue
+function showNext() {
+  if (currentLine >= dialogues.length) return;
+  const line = dialogues[currentLine];
+  namebox.textContent = line.name;
+  typeLine(line.text, 25, () => { if(line.choice) showChoices(); });
+}
+
+// Click to advance / skip
+textbox.addEventListener("click", () => {
+  const line = dialogues[currentLine];
+  if (!line) return;
+  clearTimeout(autoTimer);
+  if (typing && !fullyTyped) {
+    clearInterval(interval);
+    typing = false;
+    fullyTyped = true;
+    textContent.textContent = line.text;
+    return;
+  }
+  if (fullyTyped && !line.choice && !inChoice) {
+    currentLine++;
+    showNext();
+  }
+});
+
+// Show choices
+function showChoices() {
+  inChoice = true;
+  choicesBox.innerHTML = "";
+  choicesBox.style.display = "flex";
+  const choiceData = [
+    { text: "Sorry...", speaker: "English", result: "*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
+    { text: "Not my fault you sleep too much.", speaker: "English", result: "H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
+    { text: "Stay silent.", speaker: "English", result: "U-uhm… hello?? Are you even listening to me??" }
+  ];
+  choiceData.forEach(choice => {
+    const btn = document.createElement("div");
+    btn.className = "choice";
+    btn.textContent = choice.text;
+    btn.onclick = () => {
+      choicesBox.style.display = "none";
+      inChoice = false;
+      textContent.innerHTML = "";
+      namebox.textContent = choice.speaker;
+      typeLine(choice.result, 25);
+    };
+    choicesBox.appendChild(btn);
+  });
+}
+
+// Start scene
+setTimeout(() => {
+  textbox.style.display = "block";
+  showNext();
+}, 3000);
+</script>
+</body>
+</html>

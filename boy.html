@@ -5,30 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boy MC Scene</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
   height: 100vh;
-  background: #ffdce9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #d0f0fd; /* Light blue for boy version */
 }
 
 /* Wave transition */
 .wave {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,182,193,0.2));
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(173,216,230,0.2));
   animation: waveFade 1.5s ease forwards;
   z-index: 1;
 }
 @keyframes waveFade {from {opacity: 1;} to {opacity: 0;}}
 
-/* BG */
+/* Background */
 .bg {
   position: fixed;
   inset: 0;
@@ -64,46 +60,46 @@ body {
   width: 90%;
   max-width: 880px;
   height: 140px;
-  background: rgba(255, 220, 240, 0.95);
+  background: rgba(200,230,255,0.95); /* light blue background */
   border-radius: 18px;
   padding: 20px 25px 26px 25px;
-  box-shadow: 0 0 25px rgba(255,150,190,0.5);
+  box-shadow: 0 0 25px rgba(100,180,230,0.5);
   z-index: 3;
   display: none;
-  color: #d91f7a;
+  color: #0655a3;
   font-weight: 600;
   font-size: 0.95rem;
-  border: 2px solid #ff9ad1;
-  overflow-wrap: break-word;
+  border: 2px solid #7ec0ee;
   line-height: 1.45;
+  overflow-wrap: break-word;
 }
 
 .namebox {
   position: absolute;
   top: -36px;
   left: 22px;
-  background: rgba(255,182,193,0.92);
+  background: rgba(173,216,230,0.92);
   padding: 8px 18px;
   border-radius: 10px;
   font-weight: 800;
   font-size: 1.1rem;
-  border: 1px solid #ffa8d5;
+  border: 1px solid #87cefa;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.namebox:hover {transform: translateY(-2px); box-shadow: 0 0 8px rgba(255,105,180,0.6);}
+.namebox:hover {transform: translateY(-2px); box-shadow: 0 0 8px rgba(0,105,180,0.6);}
 
 .cursor {
   display: inline-block;
   width: 2px;
-  background: #d91f7a;
+  background: #0655a3;
   animation: blink 0.8s steps(1) infinite;
   margin-left: 4px;
 }
 @keyframes blink {0%,50%,100% {opacity: 1;} 25%,75% {opacity: 0;}}
 
 .letter {
-  -webkit-text-stroke: 0.6px white;
-  text-shadow: 0 0 2px rgba(255,255,255,0.6);
+  -webkit-text-stroke: 0.5px white;
+  text-shadow: 0 0 2px rgba(255,255,255,0.5);
 }
 
 /* Navbar */
@@ -119,18 +115,18 @@ body {
 .navbar a {
   text-decoration: none;
   color: white;
-  background: rgba(255,105,180,0.88);
+  background: rgba(65,105,225,0.88);
   padding: 5px 10px;
   border-radius: 7px;
   font-weight: 700;
   transition: 0.25s;
 }
-.navbar a:hover {background: rgba(255,105,180,1);}
+.navbar a:hover {background: rgba(65,105,225,1);}
 
-/* ─────────── CHOICE BUTTONS ─────────── */
+/* Choices */
 .choices {
   position: fixed;
-  top: 8%;
+  bottom: 180px; /* above textbox */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -138,29 +134,27 @@ body {
   display: none;
   flex-direction: column;
   gap: 12px;
-  z-index: 10;
+  z-index: 20;
 }
 
 .choice {
-  background: rgba(255, 235, 245, 0.95);
-  border: 2px solid #ff9ad1;
+  background: rgba(220,235,255,0.95);
+  border: 2px solid #7ec0ee;
   padding: 14px 20px;
   border-radius: 16px;
   font-weight: 700;
-  color: #d91f7a;
+  color: #0655a3;
   text-align: center;
   cursor: pointer;
   transition: 0.25s;
-  box-shadow: 0 0 10px rgba(255,180,210,0.4);
+  box-shadow: 0 0 10px rgba(100,180,230,0.4);
 }
-
 .choice:hover {
-  background: rgba(255, 200, 230, 1);
+  background: rgba(150,210,255,1);
   transform: scale(1.03);
 }
 </style>
 </head>
-
 <body>
 
 <div class="wave"></div>
@@ -176,156 +170,79 @@ body {
 
   <div class="navbar">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="play.html">Play</a>
+    <a href="about.html">About the Game</a>
+    <a href="play.html">PLAY!!</a>
     <a href="notebook.html">Notebook</a>
     <a href="gallery.html">Gallery</a>
   </div>
 </div>
 
 <script>
-/* ─────────── BASIC VN ENGINE ─────────── */
 const textbox = document.getElementById("textbox");
 const textContent = document.getElementById("text-content");
 const namebox = document.getElementById("namebox");
 const choicesBox = document.getElementById("choices");
-
-let mcName = localStorage.getItem("playerName") || "MC";
+const mcName = localStorage.getItem("playerName") || "MC";
 
 const dialogues = [
   { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
   { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
-  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
+  { text: `(I literally waited outside his house for 30 minutes. This is her fault.)`, name: mcName },
   { text: `Well? What do you have to say for yourself, mister?`, name: "English", choice: true }
 ];
 
-let currentLine = 0;
-let typing = false;
-let fullyTyped = false;
-let interval = null;
-let autoTimer = null;
+let currentLine = 0, typing=false, fullyTyped=false, interval, autoTimer, inChoice=false;
 
-/* ─────────── TYPEWRITER ─────────── */
-function typeLine(text, speed = 25, callback) {
-  clearInterval(interval);
-  clearTimeout(autoTimer);
-
-  typing = true;
-  fullyTyped = false;
-  textContent.innerHTML = "";
-  let i = 0;
-
-  interval = setInterval(() => {
-    if (i < text.length) {
+function typeLine(text, speed=25, callback){
+  clearInterval(interval); clearTimeout(autoTimer);
+  typing = true; fullyTyped=false; textContent.innerHTML="";
+  let i=0;
+  interval = setInterval(()=>{
+    if(i<text.length){
       const span = document.createElement("span");
-      span.textContent = text[i];
-      span.classList.add("letter");
+      span.textContent=text[i]; span.classList.add("letter");
       textContent.appendChild(span);
       i++;
-    } else {
-      clearInterval(interval);
-      typing = false;
-      fullyTyped = true;
-      if (callback) callback();
-
-      // ✅ AUTO ADVANCE (only if NOT a choice line)
-      const line = dialogues[currentLine];
-      if (!line.choice) {
-        autoTimer = setTimeout(() => {
-          currentLine++;
-          showNext();
-        }, 1000 + Math.random() * 1000);
-      }
+    } else {clearInterval(interval); typing=false; fullyTyped=true; if(callback)callback();
+      if(!dialogues[currentLine].choice && !inChoice){autoTimer=setTimeout(()=>{currentLine++; showNext();},1200);}
     }
   }, speed);
 }
 
-/* ─────────── SHOW LINE ─────────── */
-function showNext() {
-  if (currentLine >= dialogues.length) return;
-
-  const line = dialogues[currentLine];
-  namebox.textContent = line.name;
-
-  typeLine(line.text, 25, () => {
-    if (line.choice) {
-      showChoices();
-    }
-  });
+function showNext(){
+  if(currentLine>=dialogues.length) return;
+  const line=dialogues[currentLine];
+  namebox.textContent=line.name;
+  typeLine(line.text,25,()=>{if(line.choice) showChoices();});
 }
 
-/* ─────────── CLICK LOGIC ─────────── */
-textbox.addEventListener("click", () => {
-  const line = dialogues[currentLine];
-  if (!line) return;
-
+textbox.addEventListener("click", ()=>{
+  const line=dialogues[currentLine]; if(!line) return;
   clearTimeout(autoTimer);
-
-  // Click during typing → finish instantly
-  if (typing && !fullyTyped) {
-    clearInterval(interval);
-    typing = false;
-    fullyTyped = true;
-    textContent.textContent = line.text;
-    return;
-  }
-
-  // Click after typing → advance (unless choice line)
-  if (fullyTyped && !line.choice) {
-    currentLine++;
-    showNext();
-  }
+  if(typing && !fullyTyped){clearInterval(interval); typing=false; fullyTyped=true; textContent.textContent=line.text; return;}
+  if(fullyTyped && !line.choice && !inChoice){currentLine++; showNext();}
 });
 
-/* ─────────── CHOICES ─────────── */
-function showChoices() {
-  choicesBox.style.display = "flex";
-  clearTimeout(autoTimer);
-
+function showChoices(){
+  inChoice=true;
+  choicesBox.innerHTML="";
+  choicesBox.style.display="flex";
   const choiceData = [
-    {
-      text: "Sorry...",
-      speaker: "English",
-      result: "*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much."
-    },
-    {
-      text: "Not my fault you sleep too much.",
-      speaker: "English",
-      result: "H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…"
-    },
-    {
-      text: "Stay silent.",
-      speaker: "English",
-      result: "U-uhm… hello?? Are you even listening to me??"
-    }
+    { text:"Sorry...", speaker:"English", result:"*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
+    { text:"Not my fault you sleep too much.", speaker:"English", result:"H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
+    { text:"Stay silent.", speaker:"English", result:"U-uhm… hello?? Are you even listening to me??" }
   ];
-
-  choicesBox.innerHTML = "";
-
-  choiceData.forEach(choice => {
-    const btn = document.createElement("div");
-    btn.className = "choice";
-    btn.textContent = choice.text;
-
-    btn.onclick = () => {
-      choicesBox.style.display = "none";
-      textContent.innerHTML = "";
-      namebox.textContent = choice.speaker;
-
-      typeLine(choice.result, 25);
-    };
-
+  choiceData.forEach(choice=>{
+    const btn=document.createElement("div");
+    btn.className="choice"; btn.textContent=choice.text;
+    btn.onclick=()=>{choicesBox.style.display="none"; inChoice=false; textContent.innerHTML=""; namebox.textContent=choice.speaker; typeLine(choice.result,25);}
     choicesBox.appendChild(btn);
   });
 }
 
-/* ─────────── START SCENE ─────────── */
-setTimeout(() => {
-  textbox.style.display = "block";
-  showNext();
-}, 3000);
+setTimeout(()=>{textbox.style.display="block"; showNext();},3000);
 </script>
-
 </body>
 </html>
 
+</html>
