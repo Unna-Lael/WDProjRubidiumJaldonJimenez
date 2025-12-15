@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Girl MC Scene</title>
+<title>Boy MC Scene</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 body {
@@ -105,6 +105,27 @@ body {
   text-shadow: 0 0 2px rgba(255,255,255,0.6);
 }
 
+/* Navbar */
+.navbar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+}
+.navbar a {
+  text-decoration: none;
+  color: white;
+  background: rgba(255,105,180,0.88);
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-weight: 700;
+  transition: 0.25s;
+}
+.navbar a:hover {background: rgba(255,105,180,1);}
+
 /* Choices */
 .choices {
   position: fixed;
@@ -141,6 +162,7 @@ body {
 
 <div class="wave"></div>
 <div class="bg"></div>
+
 <img class="character" id="character" src="https://i.pinimg.com/originals/1a/21/5c/1a215cd87f4ac1cebc3c3a8353da7d8a.png">
 
 <div class="choices" id="choices"></div>
@@ -148,6 +170,14 @@ body {
 <div class="textbox" id="textbox">
   <div class="namebox" id="namebox">English</div>
   <div id="text-content"></div><span class="cursor"></span>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About the Game</a>
+    <a href="play.html">PLAY!!</a>
+    <a href="notebook.html">Notebook</a>
+    <a href="gallery.html">Gallery</a>
+  </div>
 </div>
 
 <script>
@@ -171,6 +201,7 @@ let interval;
 let autoTimer;
 let inChoice = false;
 
+// Typewriter effect
 function typeLine(text, speed = 25, callback) {
   clearInterval(interval);
   clearTimeout(autoTimer);
@@ -197,6 +228,7 @@ function typeLine(text, speed = 25, callback) {
   }, speed);
 }
 
+// Show next dialogue
 function showNext() {
   if (currentLine >= dialogues.length) return;
   const line = dialogues[currentLine];
@@ -204,6 +236,7 @@ function showNext() {
   typeLine(line.text, 25, () => { if(line.choice) showChoices(); });
 }
 
+// Click to advance / skip
 textbox.addEventListener("click", () => {
   const line = dialogues[currentLine];
   if (!line) return;
@@ -222,6 +255,7 @@ textbox.addEventListener("click", () => {
   }
 });
 
+// Show choices
 function showChoices() {
   inChoice = true;
   choicesBox.innerHTML = "";

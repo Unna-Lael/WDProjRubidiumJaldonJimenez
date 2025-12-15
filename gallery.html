@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery Page Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== GENERAL RESET ===== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #A0522D;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAALklEQVR42u3BAQEAAAKEKO2/J38KzR0AAAAA4N+hSABJgCRJgCRJgCRJgD/zDnggAQxQzQAAAABRU5ErkJggg==');
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    z-index: 20;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-item {
+    padding: 6px 14px;
+    background-color: #FFC0CB;
+    border-radius: 12px;
+    border: 2px solid #FF69B4;
+    font-weight: 700;
+    color: #FF69B4;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.nav-item:hover {
+    background: #FF69B4;
+    color: white;
+    transform: translateY(-3px) rotate(3deg);
+}
+
+/* ===== HEADER OVERHANG ===== */
+.content-overhang {
+    position: absolute;
+    top: 50px; /* Below navbar */
+    width: 100%;
+    height: 20px;
+    background: white;
+    opacity: 0.8;
+    z-index: 9;
+}
+
+/* ===== GALLERY CONTAINER ===== */
+.gallery-container {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px; /* Space for navbar */
+}
+
+/* ===== POLAROID PHOTOS ===== */
+.photo-frame {
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    padding-bottom: 40px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    display: block;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    background-color: black;
+}
+
+/* Tilt hover effect */
+.photo-frame:hover {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+}
+
+/* ===== PHOTO POSITIONS ===== */
+.photo-1 { width: 300px; height: 300px; top: 20%; left: 10%; transform: rotate(-10deg);}
+.photo-2 { width: 350px; height: 350px; bottom: 5%; left: 30%; transform: rotate(3deg);}
+.photo-3 { width: 150px; height: 150px; top: 15%; right: 15%; transform: rotate(20deg);}
+.photo-4 { width: 120px; height: 120px; top: 50%; right: 5%; transform: rotate(-5deg);}
+.photo-5 { width: 200px; height: 200px; top: 40%; left: 1%; transform: rotate(8deg);}
+
+/* ===== PINK LEFT STRIP ===== */
+.pink-strip {
+    position: absolute;
+    width: 140px;
+    height: 400px;
+    top: 10%;
+    left: 0;
+    background-color: #FFC0CB;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pink-strip img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid white;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pink-strip img:hover {
+    transform: scale(1.07) rotate(-3deg);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ===== SCROLLBAR ===== */
+.scroll-bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-color: #FFC0CB;
+    border-left: 2px solid #F08080;
+    border-right: 2px solid #F08080;
+    z-index: 5;
+}
+
+.scroll-thumb {
+    width: 100%;
+    height: 100px;
+    background-color: #F08080;
+    border-radius: 10px;
+    position: absolute;
+    top: 10%;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <a href="index.html" class="nav-item">Home</a>
+    <a href="about.html" class="nav-item">About</a>
+    <a href="play.html" class="nav-item">PLAY!!</a>
+    <a href="notebook.html" class="nav-item">Notebook</a>
+    <a href="#" class="nav-item">Gallery</a>
+</div>
+
+<!-- HEADER OVERHANG -->
+<div class="content-overhang"></div>
+
+<!-- GALLERY -->
+<div class="gallery-container">
+
+    <div class="pink-strip">
+        <img src="https://via.placeholder.com/80x100/FFC0CB/FFFFFF?text=IMG+1" alt="Small Photo 1">
+        <img src="https://via.placeholder.com/80x100/F08080/FFFFFF?text=IMG+2" alt="Small Photo 2">
+        <img src="https://via.placeholder.com/80x100/FF69B4/FFFFFF?text=IMG+3" alt="Small Photo 3">
+    </div>
+
+    <div class="photo-frame photo-1">
+        <img src="https://via.placeholder.com/300x300/CCCCCC/000000?text=YOUR+IMAGE+LINK+HERE" alt="Gallery Photo 1">
+    </div>
+
+    <div class="photo-frame photo-2">
+        <img src="https://via.placeholder.com/350x350/CCCCCC/000000?text=YOUR+IMAGE+LINK+HERE" alt="Gallery Photo 2">
+    </div>
+
+    <div class="photo-frame photo-3">
+        <img src="https://via.placeholder.com/150x150/CCCCCC/000000?text=YOUR+IMAGE+LINK+HERE" alt="Gallery Photo 3">
+    </div>
+
+    <div class="photo-frame photo-4">
+        <img src="https://via.placeholder.com/120x120/CCCCCC/000000?text=YOUR+IMAGE+LINK+HERE" alt="Gallery Photo 4">
+    </div>
+
+    <div class="photo-frame photo-5">
+        <img src="https://via.placeholder.com/200x200/CCCCCC/000000?text=YOUR+IMAGE+LINK+HERE" alt="Gallery Photo 5">
+    </div>
+
+    <div class="scroll-bar">
+        <div class="scroll-thumb"></div>
+    </div>
+
+</div>
+
+</body>
+</html>

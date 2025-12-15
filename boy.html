@@ -191,68 +191,87 @@ const dialogues = [
   { text: `Well? What do you have to say for yourself, mister?`, name: "English", choice: true }
 ];
 
-let currentLine = 0, typing=false, fullyTyped=false, interval, autoTimer, inChoice=false;
+let currentLine = 0, typing = false, fullyTyped = false, interval, autoTimer, inChoice = false;
 
-function typeLine(text,speed=25,callback){
-  clearInterval(interval); clearTimeout(autoTimer);
-  typing=true; fullyTyped=false; textContent.innerHTML="";
-  let i=0;
-  interval=setInterval(()=>{
-    if(i<text.length){
-      const span=document.createElement("span");
-      span.textContent=text[i]; span.classList.add("letter");
+function typeLine(text, speed = 25, callback) {
+  clearInterval(interval); 
+  clearTimeout(autoTimer);
+  typing = true; 
+  fullyTyped = false; 
+  textContent.innerHTML = "";
+  let i = 0;
+
+  interval = setInterval(() => {
+    if (i < text.length) {
+      const span = document.createElement("span");
+      span.textContent = text[i];
+      span.classList.add("letter");
       textContent.appendChild(span);
       i++;
     } else {
-      clearInterval(interval); typing=false; fullyTyped=true;
-      if(callback) callback();
-      if(!dialogues[currentLine].choice && !inChoice){
-        autoTimer=setTimeout(()=>{currentLine++; showNext();},1200);
+      clearInterval(interval);
+      typing = false;
+      fullyTyped = true;
+      if (callback) callback();
+      // Auto-advance if not a choice
+      if (!dialogues[currentLine].choice && !inChoice) {
+        autoTimer = setTimeout(() => {
+          currentLine++;
+          showNext();
+        }, 1200);
       }
     }
-  },speed);
+  }, speed);
 }
 
-function showNext(){
-  if(currentLine>=dialogues.length) return;
-  const line=dialogues[currentLine];
-  namebox.textContent=line.name;
-  typeLine(line.text,25,()=>{if(line.choice) showChoices();});
-}
-
-textbox.addEventListener("click",()=>{
-  const line=dialogues[currentLine]; if(!line) return;
-  clearTimeout(autoTimer);
-  if(typing && !fullyTyped){
-    clearInterval(interval); typing=false; fullyTyped=true; textContent.textContent=line.text;
-    if(line.choice) showChoices();
+function showNext() {
+  if (currentLine >= dialogues.length) {
+    textbox.style.display = "none";
     return;
   }
-  if(fullyTyped && !line.choice && !inChoice){
-    currentLine++; showNext();
-  }
-});
 
-function showChoices(){
-  inChoice=true; choicesBox.innerHTML=""; choicesBox.style.display="flex";
-  const choiceData=[
-    { text:"Sorry...", speaker:"English", result:"*sigh* It's okay. I was just messing with you a little… It didn’t bang me up too much." },
-    { text:"Not my fault you sleep too much.", speaker:"English", result:"H- hey! You-!\n\n...Okay, I guess you're right. My bad… I was working on a poem for my club all night…" },
-    { text:"[Stay silent.]", speaker:"English", result:"U-uhm… hello?? Are you even listening to me??" }
-  ];
-  choiceData.forEach(choice=>{
-    const btn=document.createElement("div");
-    btn.className="choice"; btn.textContent=choice.text;
-    btn.onclick=()=>{
-      choicesBox.style.display="none"; inChoice=false; textContent.innerHTML="";
-      namebox.textContent=choice.speaker;
-      typeLine(choice.result,25);
-    };
+  const line = dialogues[currentLine];
+  namebox.textContent = line.name;
+  textbox.style.display = "block";
+
+  if (line.choice) {
+    showChoices([
+      { text: "Apologize", callback: () => { currentLine++; hideChoices(); showNext(); } },
+      { text: "Stay silent", callback: () => { currentLine++; hideChoices(); showNext(); } }
+    ]);
+  } else {
+    typeLine(line.text);
+  }
+}
+
+function showChoices(options) {
+  inChoice = true;
+  choicesBox.innerHTML = "";
+  choicesBox.style.display = "flex";
+  options.forEach(opt => {
+    const btn = document.createElement("div");
+    btn.classList.add("choice");
+    btn.textContent = opt.text;
+    btn.onclick = () => { opt.callback(); };
     choicesBox.appendChild(btn);
   });
 }
 
-setTimeout(()=>{textbox.style.display="block"; showNext();},3000);
+function hideChoices() {
+  choicesBox.style.display = "none";
+  inChoice = false;
+}
+
+// Advance on click if fully typed
+textbox.addEventListener("click", () => {
+  if (fullyTyped && !inChoice) {
+    currentLine++;
+    showNext();
+  }
+});
+
+// Start the first line
+showNext();
 </script>
 </body>
 </html>
