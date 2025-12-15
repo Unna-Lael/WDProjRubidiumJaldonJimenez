@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Character Select → Loading</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== Body & Background ===== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    linear-gradient(#ffdce9, #ffeaf3),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px);
+  background-size: 200% 200%;
+  animation: bgMove 22s linear infinite;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 200%; }
+}
+
+/* ===== Diamond Background ===== */
+.diamond-bg {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.diamond {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,200,220,0.5));
+  transform: rotate(45deg);
+  border-radius: 4px;
+  animation: drift 7s ease-in-out infinite;
+}
+
+.diamond:nth-child(odd) {
+  background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,200,220,0.55));
+  animation-duration: 8.5s;
+}
+
+.diamond:nth-child(3n) {
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,200,220,0.6));
+  animation-duration: 10s;
+}
+
+@keyframes drift {
+  0% { transform: rotate(45deg) translate(0, 0); }
+  50% { transform: rotate(45deg) translate(25px, -25px); }
+  100% { transform: rotate(45deg) translate(0, 0); }
+}
+
+/* ===== Overlay ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,150,190,0.2);
+  backdrop-filter: blur(3px);
+  z-index: 2;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 6;
+  background: rgba(255,180,210,0.4);
+  backdrop-filter: blur(6px);
+  padding: 4px 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  font-size: 14px;
+  border-bottom: 2px solid rgba(255,100,150,0.25);
+}
+
+.navbar a {
+  color: #ff2f83;
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+.navbar .active {
+  background: rgba(255,255,255,0.5);
+}
+
+/* ===== Selection Cards ===== */
+#selection {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.select-box {
+  display: flex;
+  gap: 80px;
+}
+
+.card {
+  width: 260px;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 25px;
+  background: #ffbed8cc;
+  backdrop-filter: blur(8px);
+  border: 3px solid #ff6ea8;
+  color: #ff2f83;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,160,200,0.45);
+  transition: 0.35s;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.08);
+  box-shadow: 0 0 35px #ff4c94;
+  background: #ffb8d1;
+  color: white;
+}
+
+.card span.sparkle {
+  position: absolute;
+  pointer-events: none;
+  width: 9px;
+  height: 9px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: sparkleAnim 0.6s ease-out forwards;
+  box-shadow: 0 0 10px white;
+}
+
+@keyframes sparkleAnim {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0) translateY(-10px); opacity: 0; }
+}
+
+/* ===== Name Popup ===== */
+#name-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background: rgba(255,180,210,0.55);
+}
+
+#name-popup .popup-box {
+  background: #ffbed8dd;
+  border: 3px solid #ff6ea8;
+  padding: 30px 40px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 0 35px rgba(255,160,200,0.5);
+}
+
+#name-popup input {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 2px solid #ff6ea8;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#name-popup button {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #ff4c94;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+#name-popup button:hover {
+  background: #ff2f83;
+}
+
+/* ===== Loading Screen ===== */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,180,210,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.bar-wrap {
+  width: 600px;
+  height: 26px;
+  border-radius: 20px;
+  border: 2px solid #ff2f83;
+  overflow: hidden;
+  margin-top: 20px;
+  background: #ffd8e8;
+}
+
+.bar {
+  width: 0%;
+  height: 100%;
+  transition: width 0.05s linear;
+  background: linear-gradient(90deg,#ff8cd6,#ff4c94);
+}
+
+#loading-text {
+  color: #ff2f83;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px #ff94c9;
+}
+
+/* ===== Wipe Transition ===== */
+#wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.8s ease-in-out;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== Diamond Background ===== -->
+<div class="diamond-bg">
+  <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+  <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+  <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+  <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+</div>
+
+<div class="overlay"></div>
+
+<!-- ===== Navbar ===== -->
+<div class="navbar">
+  <a href="index.html"><div class="nav-btn">Home</div></a>
+  <a href="about.html"><div class="nav-btn">About</div></a>
+  <a href="play.html" class="active">Play</a>
+  <a href="notebook.html"><div class="nav-btn">Notebook</div></a>
+  <a href="gallery.html">Gallery</a>
+</div>
+
+<!-- ===== Character Selection ===== -->
+<div id="selection">
+  <div class="select-box">
+    <div class="card" onclick="chooseGender('Male')">Male</div>
+    <div class="card" onclick="chooseGender('Female')">Female</div>
+  </div>
+</div>
+
+<!-- ===== Name Popup ===== -->
+<div id="name-popup">
+  <div class="popup-box">
+    <h2>Enter Your Name</h2>
+    <input type="text" id="player-name" placeholder="Your name..." maxlength="12">
+    <button onclick="submitName()">Confirm</button>
+  </div>
+</div>
+
+<!-- ===== Loading Screen ===== -->
+<div id="loading-screen">
+  <div class="bar-wrap">
+    <div class="bar" id="bar"></div>
+  </div>
+  <div id="loading-text">Loading...</div>
+</div>
+
+<!-- ===== Wipe Transition ===== -->
+<div id="wipe"></div>
+
+<script>
+let chosenGender = '';
+let playerName = '';
+const selection = document.getElementById('selection');
+const loading = document.getElementById('loading-screen');
+const bar = document.getElementById('bar');
+const loadingText = document.getElementById('loading-text');
+const namePopup = document.getElementById('name-popup');
+const wipe = document.getElementById('wipe');
+
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("mousemove", e => {
+    const sparkle = document.createElement("span");
+    sparkle.classList.add("sparkle");
+    sparkle.style.left = e.offsetX + "px";
+    sparkle.style.top = e.offsetY + "px";
+    sparkle.style.animation = `sparkleAnim 0.7s ease-out forwards`;
+    card.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 700);
+  });
+});
+
+function chooseGender(g){
+  chosenGender = g;
+  selection.style.filter = 'blur(5px)';
+  namePopup.style.display = 'flex';
+}
+
+function submitName(){
+  const input = document.getElementById('player-name');
+  if(input.value.trim() === '') return;
+
+  playerName = input.value.trim();
+  localStorage.setItem('playerName', playerName);
+  localStorage.setItem('playerGender', chosenGender);
+
+  namePopup.style.display = 'none';
+  selection.style.display = 'none';
+
+  startLoading();
+}
+
+function getBarGradient(gender) {
+  return gender === 'Male' ? 'linear-gradient(90deg,#6ab4ff,#6ad4ff)' 
+                           : 'linear-gradient(90deg,#ff8cd6,#ff4c94)';
+}
+
+function getWipeGradient(gender) {
+  return gender === 'Male' ? 'linear-gradient(90deg,#b6ddff,#0063c7)' 
+                           : 'linear-gradient(90deg,#ffd0ea,#c4005f)';
+}
+
+function startLoading(){
+  bar.style.width = '0%';
+  bar.style.background = getBarGradient(chosenGender);
+  loadingText.textContent = `Loading ${chosenGender} MC: ${playerName}...`;
+  loading.style.display = 'flex';
+
+  let progress = 0;
+  const loadInterval = setInterval(() => {
+    progress += 1;
+    bar.style.width = progress + '%';
+    if(progress >= 100){
+      clearInterval(loadInterval);
+      setTimeout(wipeOut, 400);
+    }
+  }, 30);
+}
+
+function wipeOut(){
+  wipe.style.background = getWipeGradient(chosenGender);
+  wipe.style.transition = 'transform 1.2s ease-in-out';
+  wipe.style.transform = 'translateX(0%)';
+
+  setTimeout(() => { 
+    window.location.href = chosenGender === 'Male' ? 'boy.html' : 'girl.html'; 
+  }, 1200);
+}
+</script>
+
+
+</body>
+</html>

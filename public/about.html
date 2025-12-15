@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About the Game</title>
+
+  <style>
+    :root{
+      --pink-1:#ffdbe9;
+      --pink-2:#ffc0dd;
+      --accent:#ff4c94;
+      --panel:#ff6aa8;
+      --panel-deep:#ff3e86;
+      --yellow:#ffe8a3;
+    }
+
+    /* ===================== PAGE BACKGROUND ===================== */
+    html,body{height:100%;margin:0;}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.75) 0 5px, transparent 6px),
+        linear-gradient(180deg,var(--pink-1),#ffeaf3);
+      background-size:28px 28px, auto;
+      animation: moveDots 16s linear infinite;
+      overflow-x:hidden;
+    }
+
+    @keyframes moveDots{
+      0% { background-position:0 0, 0 0; }
+      100% { background-position:140px 140px, 0 0; }
+    }
+
+    /* ===================== HEADER + NAV WRAPPER ===================== */
+    .header-wrap{
+      width: 100%;
+      max-width: 1100vw;
+      margin: 30px auto 0;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(6px);
+      border-radius: 24px;
+      padding:0px 0 0px;
+      border: 2px solid rgba(255,140,180,0.3);
+      box-shadow: 0 6px 18px rgba(255,140,180,0.25);
+    }
+
+    .header{
+      text-align:center;
+      padding-bottom:15px;
+    }
+    .header h1{
+      font-size:52px;
+      margin:0;
+      color:var(--accent);
+      text-shadow:4px 4px #ffbdd2;
+      font-weight:800;
+    }
+
+    /* ===================== NAV BAR ===================== */
+.nav-box{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  padding:14px 20px 20px;
+  position: sticky;    
+  top: 0;              
+  z-index: 99;         
+  background: rgba(255,255,255,0.55);   
+  backdrop-filter: blur(6px);           
+  border-bottom: 2px solid rgba(255,140,180,0.3);
+}
+
+
+    .nav-btn{
+      padding:10px 24px;
+      background:#ffd4e6;
+      border-radius:12px;
+      border:2px solid var(--accent);
+      font-weight:700;
+      color:var(--accent);
+      cursor:pointer;
+      transition:0.25s;
+    }
+    .nav-btn:hover{
+      background:var(--accent);
+      color:white;
+      transform:translateY(-4px);
+    }
+
+    /* ===================== MAIN PANEL ===================== */
+    .stage{
+      width:90%;
+      max-width:1100px;
+      margin:26px auto;
+    }
+
+    .panel{
+      border:8px solid var(--panel-deep);
+      background: linear-gradient(180deg,#ff8fbd,#ff629d);
+      height:440px;
+      border-radius:16px;
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .scroll-area{
+      width:100%;
+      height:100%;
+      padding:40px;
+      overflow-y:auto;
+      text-align:center;
+      color:var(--yellow);
+      font-size:30px;
+      font-family:'Pacifico',cursive;
+    }
+
+    .scroll-area::-webkit-scrollbar{width:14px;}
+    .scroll-area::-webkit-scrollbar-thumb{
+      background:var(--accent);
+      border-radius:12px;
+    }
+
+    .underline{
+      height:10px;
+      width:90%;
+      max-width:1100px;
+      margin:10px auto;
+      background:linear-gradient(90deg,#ff4c94,#ff8fb3);
+      border-radius:8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NEW WRAPPER THAT MERGES HEADER + NAV BAR -->
+  <div class="header-wrap">
+    <div class="header"><h1>About the Game</h1></div>
+
+    <div class="nav-box">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="about.html" class="nav-btn">About the Game</a>
+      <a href="play.html"><div class="nav-btn">PLAY!!</div></a>
+      <a href="notebook.html"><div class="nav-btn">Notebook</div></a>
+      <div class="nav-btn">Gallery</div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="scroll-area">
+        <div>
+          <h2 style="margin-bottom:20px;">Text goes here!</h2>
+          <div style="text-align:left; font-size:18px; line-height:1.7; color:var(--yellow);">
+            1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            6. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            7. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            8. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            9. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            10. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium nulla id dictum facilisis. Nunc urna posuere nibh, a pretium mauris justo non turpis. Integer at magna vitae mi volutpat luctus.<br><br> 
+            <!-- (continue similarly up to 100 as needed) -->
+          </div>
+          <br>
+          (LOGO AT BOTTOM!)
+        </div>
+      </div>
+    </div>
+    <div class="underline"></div>
+  </div>
+
+</body>
+</html>

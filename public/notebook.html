@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Cute Notebook Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+   
+    <style>
+     
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #A0522D;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAALklEQVR42u3BAQEAAAKEKO2/J38KzR0AAAAA4N+hSABJgCRJgCRJgCRJgD/zDnggAQxQzQAAAABJRU5ErkJggg==');
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            padding-top: 40px;
+        }
+
+
+        .notebook-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: calc(100vh - 80px);
+        }
+
+
+        .page {
+            width: 450px;
+            height: 600px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+
+        .left-page { border-radius: 5px 0 0 5px; background-color: #FFC0CB; padding-left: 10px; }
+        .right-page { border-radius: 0 5px 5px 0; background-color: #FFC0CB; padding-right: 10px; }
+
+
+        .page-content {
+            background-color: white;
+            background-image: repeating-linear-gradient(white, white 24px, #F08080 25px);
+            background-size: 100% 25px;
+            background-position-y: 10px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+       
+        .left-page .page-content { left: 10px; box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1) inset; }
+        .right-page .page-content { right: 10px; box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1) inset; }
+
+
+        .entry-box {
+            position: absolute;
+            width: 180px;
+            height: 200px;
+            border: 2px solid black;
+            border-radius: 10px 5px 15px 5px / 15px 5px 10px 5px;
+            background-color: #f8f8f8;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .left-page .top-entry { top: 70px; left: 20px; transform: rotate(-1deg); }
+        .left-page .bottom-entry { bottom: 20px; left: 20px; transform: rotate(2deg); }
+        .right-page .top-entry { top: 70px; right: 20px; transform: rotate(1deg); }
+        .right-page .bottom-entry { bottom: 20px; right: 20px; transform: rotate(-2deg); }
+
+
+        .entry-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+       
+        .field-list {
+            position: absolute;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            font-family: 'Caveat', cursive;
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .left-page .field-list { left: 220px; top: 10px; }
+        .right-page .field-list { right: 200px; top: 10px; }
+
+
+        .field-item {
+            padding: 2px 0;
+            margin: 0 0 8px 0;
+            min-width: 150px;
+            font-weight: bold;
+            display: flex;
+        }
+       
+        .field-label {
+            margin-right: 5px;
+            color: #F08080;
+        }
+       
+        .field-content {
+            font-weight: 700;
+            border-bottom: 1px dashed #F08080;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+
+       
+        .decoration { position: absolute; font-size: 2em; }
+        .bunny-decal { top: 20px; left: 40px; }
+        .star-decal { top: 20px; left: 90px; color: #FFD700; }
+        .flower-decal-purple { top: 100px; right: 10px; color: #8A2BE2; }
+        .flower-decal-brown { bottom: 30px; right: 10px; }
+
+
+        .arrow {
+            position: absolute; top: 50%; transform: translateY(-50%); font-size: 2em;
+            color: #FF69B4; background-color: white; border: 3px solid #FF69B4;
+            border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center;
+            align-items: center; user-select: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 20;
+            cursor: default;
+        }
+        .left-page .arrow { left: -60px; }
+        .right-page .arrow { right: -60px; }
+       
+        .scroll-bar { right: 0; top: 0; width: 20px; height: 100%; background-color: #FFC0CB; border-left: 2px solid #F08080; border-right: 2px solid #F08080; z-index: 5; }
+        .scroll-thumb { width: 100%; height: 100px; background-color: #F08080; border-radius: 10px; position: absolute; top: 10%; }
+    </style>
+</head>
+<body>
+
+
+    <div class="notebook-container">
+        <div class="page left-page">
+            <div class="page-content">
+               
+                <div class="decoration bunny-decal">🐰</div>
+                <div class="decoration star-decal">⭐⭐</div>
+
+
+                <div class="entry-box top-entry">
+                    <img src="https://media.discordapp.net/attachments/1201031457137766480/1450096361977417838/Untitled58_20251207164720.png?ex=69414afa&is=693ff97a&hm=d94ac6de4c0b4a2de3cc6581f7120e3c007d68d642312f4e417c71282626ab79&=&format=webp&quality=lossless&width=702&height=782" alt="Character Image 1">
+                </div>
+               
+                <div class="field-list">
+                    <div class="field-item"><span class="field-label">Name:</span> <span class="field-content">Biology</span></div>
+                    <div class="field-item"><span class="field-label">Likes:</span> <span class="field-content">Travelling, plants, animals</span></div>
+                    <div class="field-item"><span class="field-label">Dislikes:</span> <span class="field-content">idk</span></div>
+                    <div class="field-item"><span class="field-label">Quote:</span> <span class="field-content">"You only live once maybe idk"</span></div>
+                </div>
+
+
+                <div class="entry-box bottom-entry">
+                    <img src="https://media.discordapp.net/attachments/1201031457137766480/1450096565342699561/Untitled62_20251208121010.png?ex=69414b2a&is=693ff9aa&hm=6ac59bb7a88604cf1ac84acb22f454c4978091f8b1b0a9236ec7e5852f86dd6a&=&format=webp&quality=lossless&width=521&height=782" alt="Character Image 2">
+                </div>
+
+
+                <div class="field-list" style="top: 340px;">
+                    <div class="field-item"><span class="field-label">Name:</span> <span class="field-content">Chemistry</span></div>
+                    <div class="field-item"><span class="field-label">Likes:</span> <span class="field-content">Rain, food, perfume </span></div>
+                    <div class="field-item"><span class="field-label">Dislikes:</span> <span class="field-content">idk</span></div>
+                    <div class="field-item"><span class="field-label">Quote:</span> <span class="field-content">"a"</span></div>
+                </div>
+               
+                <div class="arrow left-arrow">◀️</div>
+            </div>
+        </div>
+
+
+        <div class="page right-page">
+            <div class="page-content">
+               
+                <div class="decoration flower-decal-purple">🌸</div>
+               
+                <div class="entry-box top-entry">
+                    <img src="https://media.discordapp.net/attachments/1201031457137766480/1450096917928476804/Untitled50_20251117175910.png?ex=69414b7e&is=693ff9fe&hm=84f435c4afc7ccf054a43198a8036f043193de326ff588a4638f965a408a79d0&=&format=webp&quality=lossless&width=554&height=780" alt="Character Image 3">
+                </div>
+               
+                <div class="field-list">
+                    <div class="field-item"><span class="field-label">Name:</span> <span class="field-content">Computer Science</span></div>
+                    <div class="field-item"><span class="field-label">Likes:</span> <span class="field-content">Video games, Comics</span></div>
+                    <div class="field-item"><span class="field-label">Dislikes:</span> <span class="field-content">Boredom</span></div>
+                    <div class="field-item"><span class="field-label">Quote:</span> <span class="field-content">"Level up!"</span></div>
+                </div>
+
+
+                <div class="entry-box bottom-entry">
+                    <img src="https://media.discordapp.net/attachments/1201031457137766480/1450097477708550247/Untitled51_20251117175918.png?ex=69414c04&is=693ffa84&hm=e171596b46e6ead7a987fb061f5b5d2e2e9dcde03920b0c8bc31149435d5efde&=&format=webp&quality=lossless&width=554&height=780" alt="Character Image 4">
+                </div>
+
+
+                <div class="field-list" style="top: 340px;">
+                    <div class="field-item"><span class="field-label">Name:</span> <span class="field-content">Math</span></div>
+                    <div class="field-item"><span class="field-label">Likes:</span> <span class="field-content">Solving puzzles, music theory, sleep</span></div>
+                    <div class="field-item"><span class="field-label">Dislikes:</span> <span class="field-content">Poetry, parties, loud noises </span></div>
+                    <div class="field-item"><span class="field-label">Quote:</span> <span class="field-content">"a"</span></div>
+                </div>
+               
+                <div class="decoration flower-decal-brown">✳️✴️</div>
+                <div class="arrow right-arrow">▶️</div>
+            </div>
+        </div>
+
+
+        <div class="scroll-bar">
+            <div class="scroll-thumb"></div>
+        </div>
+       
+    </div>
+
+
+</body>
+</html>

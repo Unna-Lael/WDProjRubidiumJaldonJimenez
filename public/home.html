@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subject to Love - Characters Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background:
+        /* DIAGONAL pink gradient */
+        linear-gradient(135deg, #ffdce9 0%, #ffeaf3 100%),
+        /* DIAGONAL faint checker grid */
+        repeating-linear-gradient(135deg,
+          rgba(255,255,255,0.35) 0 25px,
+          rgba(255,200,220,0.28) 25px 50px
+        );
+      background-blend-mode: multiply;
+      background-size: 400% 400%, 200% 200%;
+      animation: bgMove 25s linear infinite;
+      overflow-x: hidden;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Slide-in animation */
+    .slide-in-left {
+      transform: translateX(-40px);
+      opacity: 0;
+      animation: slideLeft 0.8s ease forwards;
+    }
+    @keyframes slideLeft {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 210px;
+      height: 100vh;
+      background: #ffb8d1cc;
+      backdrop-filter: blur(4px);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      width: 80%;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .nav-btn {
+      width: 150px;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 20px;
+      background: #ffd4e6;
+      text-align: center;
+      font-weight: 600;
+      color: #ff2f83;
+      border: 2px solid #ff2f83;
+      cursor: pointer;
+      transition: 0.25s ease;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.07);
+      background: #ff4c94;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Main Content */
+    .content {
+      margin-left: 230px;
+      padding: 40px;
+      text-align: center;
+      background: transparent;
+      min-height: 100vh;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    h1 {
+      color: #ff3e86;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .subjects {
+      font-size: 22px;
+      color: #ff3e86;
+      font-weight: 600;
+      margin-top: 10px;
+      animation: slideLeft 1s ease forwards;
+    }
+  @keyframes bgMove {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 200% 200%, 200% 200%; }
+    }
+
+    .sidebar {
+      border-top-right-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+  .character {
+      width: 250px;
+      animation: spriteFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes spriteFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* BG closer to reference: soft moving pink gradient + faint grid */
+    body {
+      background: linear-gradient(#ffdce9, #ffeaf3),
+                  repeating-linear-gradient(0deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px),
+                  repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px);
+      background-size: 200% 200%;
+      animation: bgMove 22s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar slide-in-left">
+    <img class="logo" src="/mnt/data/0472727b-99da-4f33-b00f-fa39f5e95cdb.png" alt="logo" />
+
+    <div class="nav-btn">Home</div>
+    <a href="about.html"><div class="nav-btn">About the Game</div></a>
+    <a href="play.html"><div class="nav-btn">PLAY!!</div></a>
+    <a href="notebook.html"><div class="nav-btn">Notebook</div></a>
+    <div class="nav-btn">Gallery</div>
+  </div>
+
+  <div class="content fade-in">
+    <h1>CHARACTERS AND STUFF HERE</h1>
+    <div class="subjects">
+      (MATH, PHYSICS, CHEMISTRY,<br>
+      BIOLOGY, COMSCI, SOCSCI, STAT,<br>
+      ENGLISH, FILIPINO)
+    </div>
+  </div>
+</body>
+</html>
+ <script>
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.addEventListener("mousemove", e => {
+        const sparkle = document.createElement("span");
+        sparkle.classList.add("sparkle");
+
+        sparkle.style.left = e.offsetX + "px";
+        sparkle.style.top = e.offsetY + "px";
+
+        btn.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 650);
+      });
+    });
+  </script>
