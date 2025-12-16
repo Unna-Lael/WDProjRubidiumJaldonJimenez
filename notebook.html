@@ -9,54 +9,54 @@
 <style>
 /* ===== PAGE ===== */
 body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:#8b5a2b;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 38px),
-    repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 6px);
-  overflow-y:auto;
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:#8b5a2b;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 38px),
+    repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 6px);
+  overflow-y:auto;
 }
 
 /* ===== NAV ===== */
 .navbar{
-  position:fixed; top:0; left:0; right:0;
-  height:70px; display:flex; justify-content:center; gap:18px; align-items:center;
-  background:linear-gradient(#ffd6e6,#ffc0d9); z-index:50;
+  position:fixed; top:0; left:0; right:0;
+  height:70px; display:flex; justify-content:center; gap:18px; align-items:center;
+  background:linear-gradient(#ffd6e6,#ffc0d9); z-index:50;
 }
 .nav-item{
-  background:#ffb6d5; color:white; font-weight:700;
-  padding:10px 18px; border-radius:18px; font-size:18px;
-  cursor:pointer;
+  background:#ffb6d5; color:white; font-weight:700;
+  padding:10px 18px; border-radius:18px; font-size:18px;
+  cursor:pointer;
 }
 .nav-item:active{transform:scale(.95)}
 
 /* ===== LAYOUT ===== */
 .notebook-wrap{
-  min-height:120vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:120px 0 180px;
+  min-height:120vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:120px 0 180px;
 }
 
 .notebook{
-  width:980px; height:640px;
-  background:#ff9fc9;
-  border-radius:16px;
-  box-shadow:0 25px 40px rgba(0,0,0,.35);
-  position:relative;
-  overflow:hidden;
-  transform:rotate(-2.2deg);
-  perspective:2000px;
+  width:980px; height:640px;
+  background:#ff9fc9;
+  border-radius:16px;
+  box-shadow:0 25px 40px rgba(0,0,0,.35);
+  position:relative;
+  overflow:hidden;
+  transform:rotate(-2.2deg);
+  perspective:2000px;
 }
 
 /* ===== SPREADS ===== */
 .spread{
-  position:absolute; inset:0;
-  display:flex;
-  transform-style:preserve-3d;
-  transition:transform .9s ease;
+  position:absolute; inset:0;
+  display:flex;
+  transform-style:preserve-3d;
+  transition:transform .9s ease;
 }
 
 #spread1{z-index:2; transform:translateX(0)}
@@ -70,44 +70,44 @@ body{
 
 /* ===== PAGES ===== */
 .page{
-  flex:1;
-  margin:14px;
-  border-radius:10px;
-  position:relative;
-  background:white;
-  background-image:repeating-linear-gradient(white, white 24px, #f5a6b8 25px);
-  box-shadow:inset 0 0 0 rgba(0,0,0,0);
+  flex:1;
+  margin:14px;
+  border-radius:10px;
+  position:relative;
+  background:white;
+  background-image:repeating-linear-gradient(white, white 24px, #f5a6b8 25px);
+  box-shadow:inset 0 0 0 rgba(0,0,0,0);
 }
 
 /* alt designs for spread 2 */
 .alt-left{
-  background-image:
-    repeating-linear-gradient(white, white 22px, #b6d8f2 23px),
-    radial-gradient(circle at top left, rgba(182,216,242,.4), transparent 60%);
+  background-image:
+    repeating-linear-gradient(white, white 22px, #b6d8f2 23px),
+    radial-gradient(circle at top left, rgba(182,216,242,.4), transparent 60%);
 }
 .alt-right{
-  background-image:
-    repeating-linear-gradient(white, white 22px, #c7f0c2 23px),
-    linear-gradient(135deg, rgba(199,240,194,.35), transparent 60%);
+  background-image:
+    repeating-linear-gradient(white, white 22px, #c7f0c2 23px),
+    linear-gradient(135deg, rgba(199,240,194,.35), transparent 60%);
 }
 
 .spine{width:20px; background:#d88aa6}
 
 /* page curl illusion */
 .notebook.flip-next .right{
-  box-shadow:-25px 0 30px rgba(0,0,0,.25);
+  box-shadow:-25px 0 30px rgba(0,0,0,.25);
 }
 .notebook.flip-prev .left{
-  box-shadow:25px 0 30px rgba(0,0,0,.25);
+  box-shadow:25px 0 30px rgba(0,0,0,.25);
 }
 
 /* ===== ENTRIES ===== */
 .entry{
-  position:absolute;
-  width:190px; height:220px;
-  border:2px solid #111;
-  background:#fafafa;
-  border-radius:14px 8px 18px 8px;
+  position:absolute;
+  width:190px; height:220px;
+  border:2px solid #111;
+  background:#fafafa;
+  border-radius:14px 8px 18px 8px;
 }
 .entry img{width:100%; height:100%; object-fit:cover}
 
@@ -132,25 +132,25 @@ body{
 
 /* ===== ARROWS (ON TABLE, NOT NOTEBOOK) ===== */
 .table-arrows{
-  position:fixed;
-  top:50%;
-  left:0;
-  right:0;
-  pointer-events:none;
-  z-index:40;
+  position:fixed;
+  top:50%;
+  left:0;
+  right:0;
+  pointer-events:none;
+  z-index:40;
 }
 .arrow{
-  pointer-events:auto;
-  position:absolute;
-  width:54px; height:54px;
-  border-radius:50%;
-  background:#fff;
-  border:4px solid #ff77b7;
-  color:#ff77b7;
-  display:flex; align-items:center; justify-content:center;
-  font-size:24px; cursor:pointer; user-select:none;
-  box-shadow:0 6px 12px rgba(0,0,0,.25);
-  transition:transform .15s, opacity .2s;
+  pointer-events:auto;
+  position:absolute;
+  width:54px; height:54px;
+  border-radius:50%;
+  background:#fff;
+  border:4px solid #ff77b7;
+  color:#ff77b7;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; cursor:pointer; user-select:none;
+  box-shadow:0 6px 12px rgba(0,0,0,.25);
+  transition:transform .15s, opacity .2s;
 }
 .arrow:active{transform:scale(.9)}
 .arrow.disabled{opacity:.35; pointer-events:none}
@@ -166,109 +166,106 @@ body{
 <body>
 
 <div class="navbar">
-  <a href="index.html"><div class="nav-item">Home</div></a>
-  <a href="about.html"><div class="nav-item">About the Game</div></a>
-  <a href="play.html"><div class="nav-item">PLAY!!</div></a>
-  <a href="notebook.html"><div class="nav-item">Notebook</div></a>
-  <a href="gallery.html"><div class="nav-item">Gallery</div></a>
+  <a href="index.html"><div class="nav-item">Home</div></a>
+  <a href="about.html"><div class="nav-item">About the Game</div></a>
+  <a href="play.html"><div class="nav-item">PLAY!!</div></a>
+  <a href="notebook.html"><div class="nav-item">Notebook</div></a>
+  <a href="gallery.html"><div class="nav-item">Gallery</div></a>
 </div>
 
 <div class="notebook-wrap">
-  <div class="notebook" id="notebook">
+  <div class="notebook" id="notebook">
 
-    <!-- SPREAD 1 -->
-    <div class="spread" id="spread1">
-      <div class="page left">
-        <div class="decoration bunny">🐰</div>
-        <div class="decoration stars">⭐ ⭐</div>
-        <div class="entry top"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450097477708550247/Untitled51_20251117175918.png?ex=69429d84&is=69414c04&hm=0e07ec441dd40fa72a83c2de2e6298e72a2d9eb0d47a4bb4b875354afa9127da&=&format=webp&quality=lossless&width=554&height=780"div>
-        <div class="fields top">
-          <div><span class="label">Math</span></div>
-          <div><span class="label">Likes</span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">"People can be parallel; so much in common but somehow, never meet."</span></div>
-        </div>
-        <div class="entry bottom"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096917928476804/Untitled50_20251117175910.png?ex=69429cfe&is=69414b7e&hm=6cef9dc70407fadc20e0fdf667c31aeee4f5d0806c6ff81fc34cb30b71bfc03e&=&format=webp&quality=lossless&width=554&height=780"></div>
-        <div class="fields bottom">
-          <div><span class="label">Computer Science</span></div>
-          <div><span class="label">Likes: Video Games, Comics </span></div>
-          <div><span class="label">Dislikes: Boredom</span></div>
-          <div><span class="label">Quote: "Life is a game. Win it." </span></div>
-        </div>
-      </div>
+        <div class="spread" id="spread1">
+      <div class="page left">
+        <div class="decoration bunny">🐰</div>
+        <div class="decoration stars">⭐ ⭐</div>
+                <div class="entry top"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450097477708550247/Untitled51_20251117175918.png?ex=69429d84&is=69414c04&hm=0e07ec441dd40fa72a83c2de2e6298e72a2d9eb0d47a4bb4b875354afa9127da&=&format=webp&quality=lossless&width=554&height=780"></div>
+        <div class="fields top">
+          <div><span class="label">Math</span></div>
+          <div><span class="label">Likes</span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">"People can be parallel; so much in common but somehow, never meet."</span></div>
+        </div>
+        <div class="entry bottom"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096917928476804/Untitled50_20251117175910.png?ex=69429cfe&is=69414b7e&hm=6cef9dc70407fadc20e0fdf667c31aeee4f5d0806c6ff81fc34cb30b71bfc03e&=&format=webp&quality=lossless&width=554&height=780"></div>
+        <div class="fields bottom">
+          <div><span class="label">Computer Science</span></div>
+          <div><span class="label">Likes: Video Games, Comics </span></div>
+          <div><span class="label">Dislikes: Boredom</span></div>
+          <div><span class="label">Quote: "Life is a game. Win it." </span></div>
+        </div>
+      </div>
 
-      <div class="spine"></div>
+      <div class="spine"></div>
 
-      <div class="page right">
-        <div class="decoration flower-purple">🌸</div>
-        <div class="entry top"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096361977417838/Untitled58_20251207164720.png?ex=69429c7a&is=69414afa&hm=381814fecaa1f6ff4b7a9f4218920bdd2ce30f5e0730531889387c71b3b3fe70&=&format=webp&quality=lossless&width=702&height=782"></div>
-        <div class="fields top">
-          <div><span class="label">Biology</span></div>
-          <div><span class="label">Likes: Travelling, plants, animals </span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">"Diversity in organisms are amazing"</span></div>
-        </div>
-        <div class="entry bottom"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096565342699561/Untitled62_20251208121010.png?ex=69429caa&is=69414b2a&hm=ef46fe6ee7c740551e0ca383ac42fcbf072f736383c5a27af5a010f69ff55d5d&=&format=webp&quality=lossless&width=521&height=782"div>
-        <div class="fields bottom">
-          <div><span class="label">Chemistry</span></div>
-          <div><span class="label">Likes: Rain, food, perfume </span></div>
-          <div><span class="label">Dislikes: </span></div>
-          <div><span class="label">Quote</span></div>
-        </div>
-        <div class="decoration flower-brown">✳ ✴</div>
-        
-      </div>
-    </div>
+      <div class="page right">
+        <div class="decoration flower-purple">🌸</div>
+        <div class="entry top"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096361977417838/Untitled58_20251207164720.png?ex=69429c7a&is=69414afa&hm=381814fecaa1f6ff4b7a9f4218920bdd2ce30f5e0730531889387c71b3b3fe70&=&format=webp&quality=lossless&width=702&height=782"></div>
+        <div class="fields top">
+          <div><span class="label">Biology</span></div>
+          <div><span class="label">Likes: Travelling, plants, animals </span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">"Diversity in organisms are amazing"</span></div>
+        </div>
+                <div class="entry bottom"><img src="https://media.discordapp.net/attachments/1201031457137766480/1450096565342699561/Untitled62_20251208121010.png?ex=69429caa&is=69414b2a&hm=ef46fe6ee7c740551e0ca383ac42fcbf072f736383c5a27af5a010f69ff55d5d&=&format=webp&quality=lossless&width=521&height=782"></div>
+        <div class="fields bottom">
+          <div><span class="label">Chemistry</span></div>
+          <div><span class="label">Likes: Rain, food, perfume </span></div>
+          <div><span class="label">Dislikes: </span></div>
+          <div><span class="label">Quote</span></div>
+        </div>
+        <div class="decoration flower-brown">✳ ✴</div>
+        
+      </div>
+    </div>
 
-    <!-- SPREAD 2 (matched layout + new design) -->
-    <div class="spread" id="spread2">
-      <div class="page left alt-left">
-        <div class="decoration">📝</div>
-        <div class="entry top"></div>
-        <div class="fields top">
-          <div><span class="label">Name</span></div>
-          <div><span class="label">Likes</span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">Quote</span></div>
-        </div>
-        <div class="entry bottom"></div>
-        <div class="fields bottom">
-          <div><span class="label">Name</span></div>
-          <div><span class="label">Likes</span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">Quote</span></div>
-        </div>
-      </div>
+        <div class="spread" id="spread2">
+      <div class="page left alt-left">
+        <div class="decoration">📝</div>
+        <div class="entry top"></div>
+        <div class="fields top">
+          <div><span class="label">Name</span></div>
+          <div><span class="label">Likes</span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">Quote</span></div>
+        </div>
+        <div class="entry bottom"></div>
+        <div class="fields bottom">
+          <div><span class="label">Name</span></div>
+          <div><span class="label">Likes</span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">Quote</span></div>
+        </div>
+      </div>
 
-      <div class="spine"></div>
+      <div class="spine"></div>
 
-      <div class="page right alt-right">
-        <div class="decoration">📎</div>
-        <div class="entry top"></div>
-        <div class="fields top">
-          <div><span class="label">Name</span></div>
-          <div><span class="label">Likes</span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">Quote</span></div>
-        </div>
-        <div class="entry bottom"></div>
-        <div class="fields bottom">
-          <div><span class="label">Name</span></div>
-          <div><span class="label">Likes</span></div>
-          <div><span class="label">Dislikes</span></div>
-          <div><span class="label">Quote</span></div>
-        </div>
-      </div>
-    </div>
+      <div class="page right alt-right">
+        <div class="decoration">📎</div>
+        <div class="entry top"></div>
+        <div class="fields top">
+          <div><span class="label">Name</span></div>
+          <div><span class="label">Likes</span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">Quote</span></div>
+        </div>
+        <div class="entry bottom"></div>
+        <div class="fields bottom">
+          <div><span class="label">Name</span></div>
+          <div><span class="label">Likes</span></div>
+          <div><span class="label">Dislikes</span></div>
+          <div><span class="label">Quote</span></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="scroll"><div class="thumb" id="thumb"></div></div><div class="thumb" id="thumb"></div></div>
-  </div>
+        <div class="scroll"><div class="thumb" id="thumb"></div></div>
+  </div>
 </div>
 
-<!-- TABLE ARROWS -->
 <div class="table-arrows">
-  <div class="arrow left-arrow" id="prevBtn">◀</div>
-  <div class="arrow right-arrow" id="nextBtn">▶</div>
+  <div class="arrow left-arrow" id="prevBtn">◀</div>
+  <div class="arrow right-arrow" id="nextBtn">▶</div>
 </div>
 
 <script>
@@ -280,30 +277,30 @@ const thumb = document.getElementById('thumb');
 let page = 1;
 
 function updateUI(){
-  nextBtn.classList.toggle('disabled', page === 2);
-  prevBtn.classList.toggle('disabled', page === 1);
-  thumb.style.top = page === 1 ? '0%' : '60%';
+  nextBtn.classList.toggle('disabled', page === 2);
+  prevBtn.classList.toggle('disabled', page === 1);
+  thumb.style.top = page === 1 ? '0%' : '60%';
 }
 
 nextBtn.addEventListener('click', () => {
-  if(page !== 1) return;
-  notebook.classList.remove('flip-prev');
-  notebook.classList.add('flip-next');
-  page = 2;
-  updateUI();
+  if(page !== 1) return;
+  notebook.classList.remove('flip-prev');
+  notebook.classList.add('flip-next');
+  page = 2;
+  updateUI();
 });
 
 prevBtn.addEventListener('click', () => {
-  if(page !== 2) return;
-  notebook.classList.remove('flip-next');
-  notebook.classList.add('flip-prev');
-  page = 1;
-  updateUI();
+  if(page !== 2) return;
+  notebook.classList.remove('flip-next');
+  notebook.classList.add('flip-prev');
+  page = 1;
+  updateUI();
 });
 
 window.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight') nextBtn.click();
-  if(e.key === 'ArrowLeft') prevBtn.click();
+  if(e.key === 'ArrowRight') nextBtn.click();
+  if(e.key === 'ArrowLeft') prevBtn.click();
 });
 
 updateUI();
