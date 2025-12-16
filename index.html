@@ -7,14 +7,11 @@
   <link rel="icon" type="image/webp" href="/favicon.webp">
 
   <style>
-    
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background:
-        /* DIAGONAL pink gradient */
         linear-gradient(135deg, #ffdce9 0%, #ffeaf3 100%),
-        /* DIAGONAL faint checker grid */
         repeating-linear-gradient(135deg,
           rgba(255,255,255,0.35) 0 25px,
           rgba(255,200,220,0.28) 25px 50px
@@ -25,21 +22,26 @@
       overflow-x: hidden;
     }
 
-    /* Fade-in animation */
+    @keyframes bgMove {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 200% 200%, 200% 200%; }
+    }
+
     .fade-in {
       opacity: 0;
       animation: fadeIn 1s ease forwards;
     }
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
 
-    /* Slide-in animation */
     .slide-in-left {
       transform: translateX(-40px);
       opacity: 0;
       animation: slideLeft 0.8s ease forwards;
     }
+
     @keyframes slideLeft {
       to {
         transform: translateX(0);
@@ -47,7 +49,6 @@
       }
     }
 
-    /* Sidebar */
     .sidebar {
       position: fixed;
       left: 0;
@@ -61,6 +62,8 @@
       flex-direction: column;
       align-items: center;
       box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+      border-top-right-radius: 40px;
+      border-bottom-right-radius: 40px;
     }
 
     .logo {
@@ -97,42 +100,27 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    /* Main Content */
     .content {
       margin-left: 230px;
       padding: 40px;
-      text-align: center;
-      background: transparent;
       min-height: 100vh;
-      animation: fadeIn 1.2s ease forwards;
     }
 
-    h1 {
-      color: #ff3e86;
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
+    /* ===== CHARACTER CLUSTER (NEW, SAFE) ===== */
 
-    .subjects {
-      font-size: 22px;
-      color: #ff3e86;
-      font-weight: 600;
-      margin-top: 10px;
-      animation: slideLeft 1s ease forwards;
-    }
-  @keyframes bgMove {
-      0% { background-position: 0 0, 0 0; }
-      100% { background-position: 200% 200%, 200% 200%; }
-    }
-
-    .sidebar {
-      border-top-right-radius: 40px;
-      border-bottom-right-radius: 40px;
+    .character-sprite {
+      position: relative;
+      height: 520px;
+      margin-top: 40px;
     }
   .character {
-      width: 250px;
-      animation: spriteFloat 3.5s ease-in-out infinite;
-    }
+    position: absolute;
+    bottom: 0;
+    width: 170px;
+    transform-origin: bottom center;
+    animation: spriteFloat 3.5s ease-in-out infinite;
+}
+
 
     @keyframes spriteFloat {
       0% { transform: translateY(0); }
@@ -140,15 +128,17 @@
       100% { transform: translateY(0); }
     }
 
-    body {
-      background: linear-gradient(#ffdce9, #ffeaf3),
-                  repeating-linear-gradient(0deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px),
-                  repeating-linear-gradient(90deg, rgba(255,255,255,0.25) 0 20px, rgba(255,200,220,0.22) 20px 40px);
-      background-size: 200% 200%;
-      animation: bgMove 22s linear infinite;
-    }
+    /* Cramped DDLC-style cluster */
+    .c1 { left: 38%; transform: scale(0.9);  z-index: 1; }
+    .c2 { left: 41%; transform: scale(0.95); z-index: 2; }
+    .c3 { left: 44%; transform: scale(1);    z-index: 3; }
+    .c4 { left: 47%; transform: scale(1.05); z-index: 5; }
+    .c5 { left: 50%; transform: scale(1);    z-index: 3; }
+    .c6 { left: 53%; transform: scale(0.95); z-index: 2; }
+    .c7 { left: 56%; transform: scale(0.9);  z-index: 1; }
   </style>
 </head>
+
 <body>
   <div class="sidebar slide-in-left">
     <img class="logo" src="/mnt/data/0472727b-99da-4f33-b00f-fa39f5e95cdb.png" alt="logo" />
@@ -160,31 +150,29 @@
     <a href="gallery.html"><div class="nav-btn">Gallery</div></a>
   </div>
 
-<div class="character-sprite fade-in">
-  <img src="assets/characters/math.png" class="character c1" alt="Math">
-  <img src="assets/characters/physics.png" class="character c2" alt="Physics">
-  <img src="assets/characters/chem.png.png" class="character c3" alt="Chemistry">
-  <img src="assets/characters/bio.png" class="character c4" alt="Biology">
-  <img src="assets/characters/cs.png.png" class="character c5" alt="CS">
-  <img src="assets/characters/eng.png" class="character c6" alt="English">
-  <img src="assets/characters/filipino.png" class="character c7" alt="Filipino">
-</div>
-
+  <div class="content fade-in">
+    <div class="character-sprite">
+      <img src="assets/characters/math.png.png" class="character c1" alt="Math">
+      <img src="assets/characters/physics.png" class="character c2" alt="Physics">
+      <img src="assets/characters/chem.png.png" class="character c3" alt="Chemistry">
+      <img src="assets/characters/bio.png" class="character c4" alt="Biology">
+      <img src="assets/characters/cs.png.png" class="character c5" alt="CS">
+      <img src="assets/characters/eng.png" class="character c6" alt="English">
+      <img src="assets/characters/filipino.png" class="character c7" alt="Filipino">
+    </div>
   </div>
-</body>
-</html>
- <script>
+
+  <script>
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("mousemove", e => {
         const sparkle = document.createElement("span");
         sparkle.classList.add("sparkle");
-
         sparkle.style.left = e.offsetX + "px";
         sparkle.style.top = e.offsetY + "px";
-
         btn.appendChild(sparkle);
-
         setTimeout(() => sparkle.remove(), 650);
       });
     });
   </script>
+</body>
+</html>
