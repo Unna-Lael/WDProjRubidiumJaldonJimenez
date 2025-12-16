@@ -189,10 +189,10 @@ const choicesBox = document.getElementById("choices");
 const mcName = localStorage.getItem("playerName") || "MC";
 
 const dialogues = [
-  { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
-  { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
-  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
-  { text: `Well? What do you have to say for yourself, madam?`, name: "English", choice: true }
+  { text: "Hey! ${mcName}, wait for me! You left me behind again!", name: "English" },
+  { text: "Hmph... you're mean! Leaving me behind like that... I thought we were friends!", name: "English" },
+  { text: "(I literally waited outside her house for 30 minutes. This is her fault.)", name: mcName },
+  { text: "Well? What do you have to say for yourself, madam?", name: "English", choice: true }
 ];
 
 let currentLine = 0;
