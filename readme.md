@@ -84,9 +84,18 @@ It will handle interactive elements and dynamic dialogue display, allowing playe
 - Add smooth page transitions, hover animations, and background music control across pages.
 
 ---
-
 ### **5. Website Wireframe**
 
 [Click here](https://www.canva.com/design/DAG3JuFmKzE/Ik5zgKS65P_vFvCoF-FDXA/edit?utm_content=DAG3JuFmKzE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+---
+
+# Q3 PROJECT PROPOSAL UPDATE
+By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
+
+## Subject to Love!
+---
+## Features:
+-
+
 
 ---
