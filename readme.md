@@ -95,6 +95,8 @@ By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
 ## Subject to Love!
 ---
 ## Features:
+-The game will work on both mobile and laptop.
+-Different background music will be featured throughout the game.
 -
 
 
