@@ -115,8 +115,36 @@ By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
 ---
 
 ## ***Details*** 
-- We will use HTML to 
-  
+
+- ### HTML ###
+  - Creates separate pages (Home, Play, Notebook, Gallery, etc.)
+  - Holds all story text, dialogue, and descriptions
+  - Defines all buttons
+  - Places images (characters, backgrounds, CGs)
+  - Structures layout using divs, sections, headers, and footers
+  - Provides links and navigation between pages
+  - Holds the forms 
+
+- ### CSS ###
+  - Sets background colors and overall theme
+  - Styles text
+  - Positions elements on the page (margins, padding, centering)
+  - Designs buttons (colors, shapes, hover effects)
+  - Differentiates sections visually (Play, Notebook, Gallery)
+  - Adds smooth transitions and simple animations
+  - Maintains consistent aesthetic across all pages
+  - Changes layout depending on whether player is using mobile or laptop
+
+- ### JS ###
+  - Detects player interactions (button clicks, choices)
+  - Updates dialogue and text dynamically
+  - Shows and hides content during gameplay
+  - Controls story flow and scene progression
+  - Handles choice logic and branching paths
+  - Triggers visual changes (text updates, image swaps)
+  - Manages simple game state (progress, flags, routes)
+  - Toggles
+    
 ---
 
 ## ***Definition of Done***
