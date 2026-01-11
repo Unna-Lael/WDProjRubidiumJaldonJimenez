@@ -94,10 +94,30 @@ By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
 
 ## Subject to Love!
 ---
-## Features:
--The game will work on both mobile and laptop.
--Different background music will be featured throughout the game.
--
-
-
+## ***Features*** 
+- Compatible for both mobile and laptop  
+- Settings page that adjust text speed and volume
+- Different background music for different scenes
+- Use of localstorage to make each experience feel different and personalized
+- Complete and original sprites, CGs, etc.
+- A loading page when you first enter the site with custom animations
+- Scroll bars for About the Game and Settings
+- Sticky nav bars
+- The ability to autoplay the dialouge, check the dialogue history, and saving and loading progress
+- Add a testimonials/feedback section under the About the Game text box
+- Minigames similar to DDLC's poetry writing
+- Color and theme toggle
+- More animations
+- Locking certain CGs in the gallery until you experience them
+- Easter eggs!!
+- Footers
+  
 ---
+
+## ***Details*** 
+- We will use HTML to 
+  
+---
+
+## ***Definition of Done***
+Our project will be done when we have a fully polished, enjoyable, interesting dating sim that anyone can play. We want to make it fun and heartfelt, while letting the player customize the website to their liking (colors, dialogue, etc.), to take off the burden of reality for just a little while.
