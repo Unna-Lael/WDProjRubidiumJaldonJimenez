@@ -3,42 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Huzzettes</title>
+<title>Boy MC Scene</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/webp" href="/favicon.webp">
-  
+
 <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
   height: 100vh;
-  background: #d0f0fd; /* Light blue for boy version */
+  background: #d0f0fd;
 }
 
-/* Wave transition */
-.wave {
+/* Fade overlay for scene cuts */
+.fade {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(173,216,230,0.2));
-  animation: waveFade 1.5s ease forwards;
-  z-index: 1;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 10;
 }
-@keyframes waveFade {from {opacity: 1;} to {opacity: 0;}}
 
 /* Background */
 .bg {
   position: fixed;
   inset: 0;
-  background: url('https://static.wikitide.net/projectsekaiwiki/thumb/e/e2/Bg_area_13.png/750px-Bg_area_13.png') center/cover no-repeat;
-  opacity: 0;
-  animation: fadeInBG 1.5s ease forwards;
-  animation-delay: 1.5s;
+  background-size: cover;
+  background-position: center;
   z-index: 0;
 }
-@keyframes fadeInBG {from {opacity: 0;} to {opacity: 1;}}
 
-/* Character */
+/* Character sprite */
 .character {
   position: fixed;
   bottom: 5%;
@@ -47,11 +45,9 @@ body {
   width: 35%;
   max-width: 400px;
   opacity: 0;
+  transition: opacity 0.6s ease;
   z-index: 2;
-  animation: fadeInChar 1s ease forwards;
-  animation-delay: 3s;
 }
-@keyframes fadeInChar {from {opacity: 0;} to {opacity: 1;}}
 
 /* Textbox */
 .textbox {
@@ -62,20 +58,32 @@ body {
   width: 90%;
   max-width: 880px;
   height: 140px;
-  background: rgba(200,230,255,0.95);
+
+  /* subtle VN texture */
+  background:
+    radial-gradient(
+      rgba(255,255,255,0.18) 1px,
+      transparent 1px
+    ),
+    rgba(200,230,255,0.95);
+  background-size: 6px 6px;
+
   border-radius: 18px;
   padding: 20px 25px 26px 25px;
   box-shadow: 0 0 25px rgba(100,180,230,0.5);
   z-index: 3;
   display: none;
+
   color: #0655a3;
   font-weight: 600;
   font-size: 0.95rem;
   border: 2px solid #7ec0ee;
   line-height: 1.45;
-  overflow-wrap: break-word;
+
+  backdrop-filter: blur(2px);
 }
 
+/* Name box */
 .namebox {
   position: absolute;
   top: -36px;
@@ -86,49 +94,28 @@ body {
   font-weight: 800;
   font-size: 1.1rem;
   border: 1px solid #87cefa;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.namebox:hover {transform: translateY(-2px); box-shadow: 0 0 8px rgba(0,105,180,0.6);}
 
+/* Cursor */
 .cursor {
   display: inline-block;
   width: 2px;
+  height: 1em;
+  vertical-align: baseline;
   background: #0655a3;
+  margin-left: 2px;
   animation: blink 0.8s steps(1) infinite;
-  margin-left: 4px;
 }
-@keyframes blink {0%,50%,100% {opacity: 1;} 25%,75% {opacity: 0;}}
+@keyframes blink { 50% { opacity: 0; } }
 
 .letter {
-  -webkit-text-stroke: 0.5px white;
-  text-shadow: 0 0 2px rgba(255,255,255,0.5);
+  -webkit-text-stroke: 0.4px white;
 }
-
-/* Navbar */
-.navbar {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-}
-.navbar a {
-  text-decoration: none;
-  color: white;
-  background: rgba(65,105,225,0.88);
-  padding: 5px 10px;
-  border-radius: 7px;
-  font-weight: 700;
-  transition: 0.25s;
-}
-.navbar a:hover {background: rgba(65,105,225,1);}
 
 /* Choices */
 .choices {
   position: fixed;
-  bottom: 180px; 
+  bottom: 180px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -138,7 +125,6 @@ body {
   gap: 12px;
   z-index: 20;
 }
-
 .choice {
   background: rgba(220,235,255,0.95);
   border: 2px solid #7ec0ee;
@@ -149,74 +135,78 @@ body {
   text-align: center;
   cursor: pointer;
   transition: 0.25s;
-  box-shadow: 0 0 10px rgba(100,180,230,0.4);
 }
-.choice:hover {
-  background: rgba(150,210,255,1);
-  transform: scale(1.03);
-}
+.choice:hover { transform: scale(1.03); }
 </style>
 </head>
+
 <body>
 
-<div class="wave"></div>
-<div class="bg"></div>
+<div class="fade" id="fade"></div>
+<div class="bg" id="bg"></div>
 
-<img class="character" id="character" src="https://media.discordapp.net/attachments/1201031457137766480/1450465543067799653/Untitled52_20251117180252.png?ex=6942a2cd&is=6941514d&hm=d6ed566323986e52fcccc2c8ebcc880a74ff32a795b602af004f656135c28549&=&format=webp&quality=lossless&width=554&height=780">
+<img class="character" id="character"
+src="https://media.discordapp.net/attachments/1201031457137766480/1450465543067799653/Untitled52_20251117180252.png">
 
 <div class="choices" id="choices"></div>
 
 <div class="textbox" id="textbox">
-  <div class="namebox" id="namebox">English</div>
-  <div id="text-content"></div><span class="cursor"></span>
-
-  <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="about.html">About the Game</a>
-    <a href="play.html">PLAY!!</a>
-    <a href="notebook.html">Notebook</a>
-    <a href="gallery.html">Gallery</a>
+  <div class="namebox" id="namebox"></div>
+  <div id="text-content">
+    <span class="cursor" id="cursor"></span>
   </div>
 </div>
 
 <script>
+const bg = document.getElementById("bg");
+const fade = document.getElementById("fade");
 const textbox = document.getElementById("textbox");
 const textContent = document.getElementById("text-content");
 const namebox = document.getElementById("namebox");
 const choicesBox = document.getElementById("choices");
+const character = document.getElementById("character");
+const cursor = document.getElementById("cursor");
+
 const mcName = localStorage.getItem("playerName") || "MC";
 
-const dialogues = [
-  { text: `Hey! ${mcName}, wait for me! You left me behind again!`, name: "English" },
-  { text: `Hmph... you're mean! Leaving me behind like that... I thought we were friends!`, name: "English" },
-  { text: `(I literally waited outside her house for 30 minutes. This is her fault.)`, name: mcName },
-  { text: `Well? What do you have to say for yourself, mister?`, name: "English", choice: true }
-];
+let currentLine = 0;
+let typing = false;
+let fullText = "";
+let index = 0;
+let interval;
+let autoTimer;
+let inChoice = false;
 
-let currentLine = 0, typing = false, fullyTyped = false, interval, autoTimer, inChoice = false;
+/* Scene cut */
+function setBackground(src) {
+  fade.style.opacity = 1;
+  setTimeout(() => {
+    bg.style.backgroundImage = `url(${src})`;
+    fade.style.opacity = 0;
+  }, 600);
+}
 
-function typeLine(text, speed = 25, callback) {
-  clearInterval(interval); 
+/* Typing effect */
+function typeLine(text, speed = 25) {
+  clearInterval(interval);
   clearTimeout(autoTimer);
-  typing = true; 
-  fullyTyped = false; 
+  typing = true;
+  fullText = text;
+  index = 0;
   textContent.innerHTML = "";
-  let i = 0;
+  textContent.appendChild(cursor);
 
   interval = setInterval(() => {
-    if (i < text.length) {
+    if (index < text.length) {
       const span = document.createElement("span");
-      span.textContent = text[i];
+      span.textContent = text[index++];
       span.classList.add("letter");
-      textContent.appendChild(span);
-      i++;
+      textContent.insertBefore(span, cursor);
     } else {
       clearInterval(interval);
       typing = false;
-      fullyTyped = true;
-      if (callback) callback();
-      // Auto-advance if not a choice
-      if (!dialogues[currentLine].choice && !inChoice) {
+
+      if (!script[currentLine].choice) {
         autoTimer = setTimeout(() => {
           currentLine++;
           showNext();
@@ -226,54 +216,107 @@ function typeLine(text, speed = 25, callback) {
   }, speed);
 }
 
-function showNext() {
-  if (currentLine >= dialogues.length) {
-    textbox.style.display = "none";
+/* Click behavior */
+textbox.addEventListener("click", () => {
+  if (typing) {
+    clearInterval(interval);
+    textContent.textContent = fullText;
+    textContent.appendChild(cursor);
+    typing = false;
     return;
   }
-
-  const line = dialogues[currentLine];
-  namebox.textContent = line.name;
-  textbox.style.display = "block";
-
-  if (line.choice) {
-    showChoices([
-      { text: "Apologize", callback: () => { currentLine++; hideChoices(); showNext(); } },
-      { text: "Stay silent", callback: () => { currentLine++; hideChoices(); showNext(); } }
-    ]);
-  } else {
-    typeLine(line.text);
-  }
-}
-
-function showChoices(options) {
-  inChoice = true;
-  choicesBox.innerHTML = "";
-  choicesBox.style.display = "flex";
-  options.forEach(opt => {
-    const btn = document.createElement("div");
-    btn.classList.add("choice");
-    btn.textContent = opt.text;
-    btn.onclick = () => { opt.callback(); };
-    choicesBox.appendChild(btn);
-  });
-}
-
-function hideChoices() {
-  choicesBox.style.display = "none";
-  inChoice = false;
-}
-
-// Advance on click if fully typed
-textbox.addEventListener("click", () => {
-  if (fullyTyped && !inChoice) {
+  if (!inChoice) {
+    clearTimeout(autoTimer);
     currentLine++;
     showNext();
   }
 });
 
-// Start the first line
+/* Choices */
+function showChoices(options) {
+  inChoice = true;
+  choicesBox.innerHTML = "";
+  choicesBox.style.display = "flex";
+
+  options.forEach(opt => {
+    const btn = document.createElement("div");
+    btn.className = "choice";
+    btn.textContent = opt.text;
+    btn.onclick = () => {
+      inChoice = false;
+      choicesBox.style.display = "none";
+      opt.callback();
+    };
+    choicesBox.appendChild(btn);
+  });
+}
+
+/* Script */
+const script = [
+  { bg: "hsbuildingfront.png", auto: true },
+
+  { bg: "bedroombg.png", auto: true },
+  { name: mcName, text: "…Great. I’m awake." },
+  { name: mcName, text: "Another day of consciousness. Thrilling." },
+  { name: mcName, text: "If I skip school, future me suffers." },
+  { name: mcName, text: "Unfortunately, future me is still me." },
+  { name: mcName, text: "Alright. Get up. Hate everything later." },
+
+  { bg: "hsbuildingfront.png", auto: true },
+
+  { char: true, name: "English", text: `Hey! ${mcName}, wait for me! You left me behind again!` },
+  { name: "English", text: "Hmph… you’re mean! Leaving me like that!" },
+  { name: mcName, text: "(I waited outside her house for thirty minutes.)" },
+  { name: mcName, text: "(This is somehow my fault.)" },
+
+  {
+    name: "English",
+    text: "Well? What do you have to say for yourself, mister?",
+    choice: true
+  }
+];
+
+/* Flow control */
+function showNext() {
+  if (currentLine >= script.length) return;
+
+  const line = script[currentLine];
+
+  if (line.bg) setBackground(line.bg);
+
+  if (line.char !== undefined) {
+    character.style.opacity = line.char ? 1 : 0;
+  }
+
+  if (line.auto && !line.text) {
+    setTimeout(() => {
+      currentLine++;
+      showNext();
+    }, 700);
+    return;
+  }
+
+  if (line.text) {
+    textbox.style.display = "block";
+    namebox.textContent = line.name || "";
+    typeLine(line.text);
+  }
+
+  if (line.choice) {
+    clearTimeout(autoTimer);
+    setTimeout(() => {
+      showChoices([
+        { text: "Apologize", callback: () => { currentLine++; showNext(); } },
+        { text: "Stay silent", callback: () => { currentLine++; showNext(); } },
+        { text: "Snark.", callback: () => { currentLine++; showNext();} }
+      ]);
+    }, 900);
+  }
+}
+
+/* Start */
 showNext();
 </script>
+
 </body>
 </html>
