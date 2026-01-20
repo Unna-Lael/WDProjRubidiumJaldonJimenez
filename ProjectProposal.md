@@ -1,7 +1,7 @@
 ## **PROJECT PROPOSAL**  
 By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
 
-![Subject To Love Proposal Head](https://media.discordapp.net/attachments/1155783555822141502/1432977222007914527/Pink_Cream_Sweet_Cute_Illustrative_Cupcake_Brand_Logo_1200_x_1000_px_1200_x_500_px.png?ex=690aec89&is=69099b09&hm=3aa15adb690fc18db712c545223ed8203600784eb0d62bf6abcf0c8d1661d42d&=&format=webp&quality=lossless&width=540&height=225)
+![Subject To Love Banner](banner.png)
 
 ---
 
@@ -12,7 +12,7 @@ By: **Unna Lael Jaldon** and **Alpha Celestine Jimenez** of *9 - Rubidium*
 
 ### **1. Logo/Favicon**
 
-![Subject To Love Logo](https://media.discordapp.net/attachments/1155783555822141502/1432979830168883270/8SCpl2AAAABklEQVQDAG2tm95dUCaBAAAAAElFTkSuQmCC.png?ex=690aeef6&is=69099d76&hm=c3fef7886c3e42fb217f8100f88ca4ccef1b4bcc0ccb62a063222bab67784f40&=&format=webp&quality=lossless&width=459&height=386)
+![Website Favicon](favicon.png)
 
 ---
 
