@@ -1,161 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Notebook Wireframe – Polished</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notebook – Polished</title>
 <link rel="icon" type="image/webp" href="/favicon.webp">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:#8b5a2b;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 38px),
-    repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 6px);
-  overflow-y:auto;
-}
+  :root{
+    --notebook-bg:#ffe1e8;
+    --page-bg:#fff8f0;
+    --accent:#ff77b7;
+    --sticker-shadow:rgba(0,0,0,0.15);
+    --sticker-bg:#fff2f8;
+    --shadow-page:rgba(0,0,0,0.25);
+  }
 
-.navbar{
-  position:fixed; top:0; left:0; right:0;
-  height:70px; display:flex; justify-content:center; gap:18px; align-items:center;
-  background:linear-gradient(#ffd6e6,#ffc0d9); z-index:50;
-}
-.nav-item{
-  background:#ffb6d5; color:white; font-weight:700;
-  padding:10px 18px; border-radius:18px; font-size:18px;
-  cursor:pointer;
-}
-.nav-item:active{transform:scale(.95)}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:#f5d8e4;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:100px 10px 50px;
+    min-height:100vh;
+  }
 
-.notebook-wrap{
-  min-height:120vh;
-  display:flex; justify-content:center; align-items:center;
-  padding:120px 0 180px;
-}
+  .navbar{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    align-items:center;
+    background:linear-gradient(#ffd6e6,#ffc0d9);
+    z-index:50;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+  .nav-item{
+    background:#ffb6d5;
+    color:white;
+    font-weight:700;
+    padding:10px 18px;
+    border-radius:18px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .nav-item:active{transform:scale(.95)}
 
-.notebook{
-  width:980px; height:640px;
-  background:#ff9fc9;
-  border-radius:16px;
-  box-shadow:0 25px 40px rgba(0,0,0,.35);
-  position:relative;
-  overflow:hidden;
-  transform:rotate(-2.2deg);
-  perspective:2000px;
-}
+  .notebook-wrap{
+    width:100%;
+    max-width:1080px;
+    perspective:2000px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:20px;
+  }
 
-.spread{
-  position:absolute; inset:0;
-  display:flex;
-  transform-style:preserve-3d;
-  transition:transform .9s ease;
-}
+  .notebook{
+    width:100%;
+    max-width:900px;
+    aspect-ratio: 16/9;
+    position:relative;
+    transform-style:preserve-3d;
+  }
 
-#spread1{z-index:2; transform:translateX(0)}
-#spread2{z-index:1; transform:translateX(100%); visibility:hidden}
+  .spread{
+    position:absolute;
+    inset:0;
+    display:flex;
+    transform-style:preserve-3d;
+    transition: transform 0.9s ease;
+  }
 
-.notebook.flip-next #spread1{transform:translateX(-100%)}
-.notebook.flip-next #spread2{transform:translateX(0); visibility:visible}
+  .page{
+    flex:1;
+    margin:10px;
+    border-radius:16px;
+    background:var(--page-bg);
+    box-shadow:inset 0 0 0 rgba(0,0,0,0), 0 8px 20px var(--shadow-page);
+    position:relative;
+    transform-origin:left;
+    overflow:hidden;
+  }
 
-.notebook.flip-prev #spread1{transform:translateX(0)}
-.notebook.flip-prev #spread2{transform:translateX(100%)}
+  /* Right page flips from right origin */
+  .page.right{
+    transform-origin:right;
+  }
 
-.page{
-  flex:1;
-  margin:14px;
-  border-radius:10px;
-  position:relative;
-  background:white;
-  background-image:repeating-linear-gradient(white, white 24px, #f5a6b8 25px);
-  box-shadow:inset 0 0 0 rgba(0,0,0,0);
-}
+  /* STICKERS / DOODLES */
+  .sticker{
+    position:absolute;
+    font-size:28px;
+    padding:4px;
+    border-radius:12px;
+    background:var(--sticker-bg);
+    box-shadow:0 3px 8px var(--sticker-shadow);
+  }
+  .bunny{top:20px; left:20px;}
+  .stars{top:20px; left:70px;}
+  .flower-purple{top:100px; right:20px;}
+  .flower-brown{bottom:30px; right:25px;}
 
-.alt-left{
-  background-image:
-    repeating-linear-gradient(white, white 22px, #b6d8f2 23px),
-    radial-gradient(circle at top left, rgba(182,216,242,.4), transparent 60%);
-}
-.alt-right{
-  background-image:
-    repeating-linear-gradient(white, white 22px, #c7f0c2 23px),
-    linear-gradient(135deg, rgba(199,240,194,.35), transparent 60%);
-}
+  /* ENTRIES / images */
+  .entry{
+    position:absolute;
+    width:160px; height:200px;
+    border:2px solid var(--accent);
+    border-radius:14px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .entry img{width:100%; height:100%; object-fit:cover;}
 
-.spine{width:20px; background:#d88aa6}
+  .left .entry.top{top:60px; left:20px;}
+  .left .entry.bottom{bottom:40px; left:20px;}
+  .right .entry.top{top:60px; right:20px;}
+  .right .entry.bottom{bottom:40px; right:20px;}
 
-.notebook.flip-next .right{box-shadow:-25px 0 30px rgba(0,0,0,.25);}
-.notebook.flip-prev .left{box-shadow:25px 0 30px rgba(0,0,0,.25);}
+  .fields{
+    position:absolute;
+    font-family:'Caveat',cursive;
+    font-size:18px;
+    max-width:200px;
+  }
+  .fields div{margin-bottom:6px; word-wrap:break-word;}
+  .label{color:var(--accent); font-weight:700;}
 
-.entry{
-  position:absolute;
-  width:180px; height:220px;
-  border:2px solid #111;
-  background:#fafafa;
-  border-radius:14px 8px 18px 8px;
-}
-.entry img{width:100%; height:100%; object-fit:cover}
+  .left .fields.top{top:80px; left:200px;}
+  .left .fields.bottom{bottom:60px; left:200px;}
+  .right .fields.top{top:80px; right:200px;}
+  .right .fields.bottom{bottom:60px; right:200px;}
 
-.left .entry.top{top:70px; left:30px; transform:rotate(-2deg)}
-.left .entry.bottom{bottom:30px; left:30px; transform:rotate(2deg)}
-.right .entry.top{top:70px; right:30px; transform:rotate(2deg)}
-.right .entry.bottom{bottom:30px; right:30px; transform:rotate(-2deg)}
+  /* SPINE */
+  .spine{
+    width:24px;
+    background:#f9c0dc;
+    border-radius:4px;
+    z-index:5;
+    margin:0 4px;
+  }
 
-.fields{
-  position:absolute;
-  font-family:'Caveat',cursive;
-  font-size:18px;
-  line-height:1.5;
-  max-width:200px;
-}
-.fields div{margin-bottom:6px; word-wrap:break-word}
+  /* PAGE TURN ANIMATION */
+  .notebook.flip-next .left{
+    transform: rotateY(-180deg);
+    z-index:1;
+  }
+  .notebook.flip-next .right{
+    transform: rotateY(0deg);
+    z-index:2;
+  }
+  .notebook.flip-prev .left{
+    transform: rotateY(0deg);
+    z-index:2;
+  }
+  .notebook.flip-prev .right{
+    transform: rotateY(180deg);
+    z-index:1;
+  }
 
-.left .fields.top{top:90px; left:240px}
-.left .fields.bottom{bottom:70px; left:240px}
-.right .fields.top{top:90px; right:240px}
-.right .fields.bottom{bottom:70px; right:240px}
+  /* arrows */
+  .table-arrows{
+    position:fixed; top:50%; left:0; right:0; pointer-events:none; z-index:50;
+  }
+  .arrow{
+    pointer-events:auto;
+    position:absolute;
+    width:50px; height:50px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid var(--accent);
+    color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; cursor:pointer; user-select:none;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+    transition:0.15s;
+  }
+  .arrow:active{transform:scale(.9);}
+  .arrow.disabled{opacity:.35; pointer-events:none;}
+  .left-arrow{left:calc(50% - 500px);}
+  .right-arrow{left:calc(50% + 450px);}
 
-.label{color:#f08ca8; font-weight:700}
+  @media(max-width:900px){
+    .notebook{max-width:95%; aspect-ratio: 4/3;}
+    .fields{font-size:16px; max-width:150px;}
+    .entry{width:120px; height:160px;}
+    .sticker{font-size:24px;}
+    .arrow{width:40px;height:40px;font-size:18px;}
+  }
 
-.decoration{position:absolute; font-size:32px}
-.bunny{top:25px; left:40px}
-.stars{top:25px; left:90px}
-.flower-purple{top:120px; right:25px}
-.flower-brown{bottom:40px; right:30px}
-
-.table-arrows{
-  position:fixed; top:50%; left:0; right:0;
-  pointer-events:none; z-index:40;
-}
-.arrow{
-  pointer-events:auto;
-  position:absolute; width:54px; height:54px;
-  border-radius:50%;
-  background:#fff;
-  border:4px solid #ff77b7;
-  color:#ff77b7;
-  display:flex; align-items:center; justify-content:center;
-  font-size:24px; cursor:pointer; user-select:none;
-  box-shadow:0 6px 12px rgba(0,0,0,.25);
-  transition:transform .15s, opacity .2s;
-}
-.arrow:active{transform:scale(.9)}
-.arrow.disabled{opacity:.35; pointer-events:none}
-.left-arrow{left:calc(50% - 560px)}
-.right-arrow{left:calc(50% + 506px)}
-
-.scroll{position:absolute; right:-26px; top:0; width:18px; height:100%; background:#ffc0d9; border:2px solid #f08ca8}
-.thumb{width:100%; height:120px; background:#f08ca8; border-radius:10px; position:absolute; top:0}
+  @media(max-width:500px){
+    .notebook{aspect-ratio:1.3/1;}
+    .fields{font-size:14px; max-width:120px;}
+    .entry{width:100px; height:140px;}
+    .sticker{font-size:20px;}
+  }
 </style>
 </head>
-
 <body>
 
 <div class="navbar">
   <a href="index.html"><div class="nav-item">Home</div></a>
-  <a href="about.html"><div class="nav-item">About the Game</div></a>
+  <a href="about.html"><div class="nav-item">About</div></a>
   <a href="play.html"><div class="nav-item">PLAY!!</div></a>
   <a href="notebook.html"><div class="nav-item">Notebook</div></a>
   <a href="gallery.html"><div class="nav-item">Gallery</div></a>
@@ -163,115 +215,43 @@ body{
 
 <div class="notebook-wrap">
   <div class="notebook" id="notebook">
+    <div class="spread">
+      <div class="page left">
+        <div class="sticker bunny">🐰</div>
+        <div class="sticker stars">⭐ ⭐</div>
+        <div class="entry top"><img src="assets/characters/bio.png" alt="Biology"></div>
+        <div class="fields top">
+          <div><span class="label">Name: Biology</span></div>
+          <div><span class="label">Likes: Nature, Silence, Gardening</span></div>
+          <div><span class="label">Dislikes: Noise, Recklessness</span></div>
+          <div><span class="label">Quote: "Let it grow!"</span></div>
+        </div>
+        <div class="entry bottom"><img src="assets/characters/chem.png" alt="Chemistry"></div>
+        <div class="fields bottom">
+          <div><span class="label">Name: Chemistry</span></div>
+          <div><span class="label">Likes: Potions, Magic, Numbers</span></div>
+          <div><span class="label">Dislikes: Carelessness, Fights, Explosions</span></div>
+        </div>
+      </div>
 
-<div class="spread" id="spread1">
-  <div class="page left">
-    <div class="decoration bunny">🐰</div>
-    <div class="decoration stars">⭐ ⭐</div>
+      <div class="spine"></div>
 
-    <div class="entry top">
-      <img src="assets/characters/bio.png" alt="Biology">
-    </div>
-    <div class="fields top">
-      <div><span class="label">Name: Biology</span></div>
-      <div><span class="label">Likes: Nature, Silence, Gardening</span></div>
-      <div><span class="label">Dislikes: Noise, Recklessness, Physics</span></div>
-      <div><span class="label">Quote: "Let it grow!"</span></div>
-    </div>
-
-    <div class="entry bottom">
-      <img src="assets/characters/chem.png.png" alt="Chemistry">
-    </div>
-    <div class="fields bottom">
-      <div><span class="label">Name: Chemistry</span></div>
-      <div><span class="label">Likes: Potions, Magic, Numbers</span></div>
-      <div><span class="label">Dislikes: Carelessness, Fights, Explosions</span></div>
-      <div><span class="label">Quote: "We have lots of chemistry-- wanna take a chance with me?"</span></div>
+      <div class="page right">
+        <div class="sticker flower-purple">🌸</div>
+        <div class="sticker flower-brown">✳ ✴</div>
+        <div class="entry top"><img src="assets/characters/cs.png" alt="Computer Science"></div>
+        <div class="fields top">
+          <div><span class="label">Name: Computer Science</span></div>
+          <div><span class="label">Likes: Technology, Vintage, Video Games</span></div>
+        </div>
+        <div class="entry bottom"><img src="assets/characters/math.png" alt="Math"></div>
+        <div class="fields bottom">
+          <div><span class="label">Name: Math</span></div>
+          <div><span class="label">Likes: Puzzles, Fountain Pens</span></div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="spine"></div>
-
-  <div class="page right">
-    <div class="decoration flower-purple">🌸</div>
-
-    <div class="entry top">
-      <img src="assets/characters/cs.png.png" alt="Computer Science">
-    </div>
-    <div class="fields top">
-      <div><span class="label">Name: Computer Science</span></div>
-      <div><span class="label">Likes: Technology, Vintage, Video Games</span></div>
-      <div><span class="label">Dislikes: Laziness, Working, Bugs</span></div>
-      <div><span class="label">Quote: "Everybody should learn to program a computer, because it teaches you how to think."</span></div>
-    </div>
-
-    <div class="entry bottom">
-      <img src="assets/characters/math.png.png" alt="Math">
-    </div>
-    <div class="fields bottom">
-      <div><span class="label">Name: Math </span></div>
-      <div><span class="label">Likes: Puzzles, Fountain Pens, Loose-fitting shirts</span></div>
-      <div><span class="label">Dislikes: People, Fallacies</span></div>
-      <div><span class="label">Quote: "You're a 9/10; because I'm the 1 you're missing."</span></div>
-    </div>
-
-    <div class="decoration flower-brown">✳ ✴</div>
-  </div>
-</div>
-
-<div class="spread" id="spread2">
-  <div class="page left alt-left">
-    <div class="decoration">📝</div>
-    <div class="entry top">
-      <img src="assets/characters/eng.png" alt="English">
-    </div>
-    <div class="fields top">
-      <div><span class="label">Name: English</span></div>
-      <div><span class="label">Likes: Literature, Cats, Autumn</span></div>
-      <div><span class="label">Dislikes: Raves, Fire, Matcha</span></div>
-      <div><span class="label">Quote: "'Whatever our souls are made of, his and mine are the same.' - Wuthering Heights"</span></div>
-    </div>
-
-    <div class="entry bottom">
-      <img src="assets/characters/filipino.png" alt="Filipino">
-    </div>
-    <div class="fields bottom">
-      <div><span class="label">Name: Filipino</span></div>
-      <div><span class="label">Likes: Superheroes, Rice, Wildlife</span></div>
-      <div><span class="label">Dislikes: Europeans, Dishonesty, Liars</span></div>
-      <div><span class="label">Quote: "Ang hindi marunong lumingon sa pinanggalingan, hindi makakarating sa paroroonan."</span></div>
-    </div>
-  </div>
-
-  
-  <div class="spine"></div>
-
-  <div class="page right alt-right">
-    <div class="decoration">📎</div>
-    <div class="entry top">
-      <img src="assets/characters/physics.png" alt="Physics">
-    </div>
-    <div class="fields top">
-      <div><span class="label">Name: Physics</span></div>
-      <div><span class="label">Likes: Planes, Basketball, Space</span></div>
-      <div><span class="label">Dislikes: Green Pens, Senselessness, The Unknown</span></div>
-      <div><span class="label">Quote: "What comes up must come down."</span></div>
-    </div>
-
-    <div class="entry bottom">
-      <img src="assets/characters/ss.png" alt="Social Science">
-    </div>
-    <div class="fields bottom">
-      <div><span class="label">Name: Social Science</span></div>
-      <div><span class="label">Likes: History, Reading, Coffee</span></div>
-      <div><span class="label">Dislikes: Religion, Bullying, Necklaces</span></div>
-      <div><span class="label">Quote: "We are not makers of history. We are made by history."</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="scroll"><div class="thumb" id="thumb"></div></div>
-</div>
 </div>
 
 <div class="table-arrows">
@@ -280,41 +260,43 @@ body{
 </div>
 
 <script>
-const notebook = document.getElementById('notebook');
-const nextBtn = document.getElementById('nextBtn');
-const prevBtn = document.getElementById('prevBtn');
-const thumb = document.getElementById('thumb');
+  const notebook = document.getElementById('notebook');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
 
-let page = 1;
+  let page = 1;
 
-function updateUI(){
-  nextBtn.classList.toggle('disabled', page === 2);
-  prevBtn.classList.toggle('disabled', page === 1);
-  thumb.style.top = page === 1 ? '0%' : '60%';
-}
+  function updateUI(){
+    nextBtn.classList.toggle('disabled', page === 2);
+    prevBtn.classList.toggle('disabled', page === 1);
+    if(page===1){
+      notebook.classList.remove('flip-next');
+      notebook.classList.add('flip-prev');
+    } else {
+      notebook.classList.remove('flip-prev');
+      notebook.classList.add('flip-next');
+    }
+  }
 
-nextBtn.addEventListener('click', () => {
-  if(page !== 1) return;
-  notebook.classList.remove('flip-prev');
-  notebook.classList.add('flip-next');
-  page = 2;
+  nextBtn.addEventListener('click', ()=>{
+    if(page!==1) return;
+    page=2;
+    updateUI();
+  });
+
+  prevBtn.addEventListener('click', ()=>{
+    if(page!==2) return;
+    page=1;
+    updateUI();
+  });
+
+  window.addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight') nextBtn.click();
+    if(e.key==='ArrowLeft') prevBtn.click();
+  });
+
   updateUI();
-});
-
-prevBtn.addEventListener('click', () => {
-  if(page !== 2) return;
-  notebook.classList.remove('flip-next');
-  notebook.classList.add('flip-prev');
-  page = 1;
-  updateUI();
-});
-
-window.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight') nextBtn.click();
-  if(e.key === 'ArrowLeft') prevBtn.click();
-});
-
-updateUI();
 </script>
+
 </body>
 </html>
